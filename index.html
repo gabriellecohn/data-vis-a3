@@ -688,7 +688,7 @@ Document the visual encodings you used and why they are appropriate for the data
 					const dripScale = (2 * maxOuterRadius) / 100;
 					const dripG = cellsG.append("g")
 						.attr("class", "jan2022-drip")
-						.attr("transform", `translate(${cx - maxOuterRadius},${cy + maxOuterRadius-26}) scale(${dripScale})`);
+						.attr("transform", `translate(${cx - maxOuterRadius},${cy}) scale(${dripScale})`);
 					const dripSvg = dripG.append("svg").attr("viewBox", "0 0 100 316").attr("width", 100).attr("height", 316);
 					dripSvg.append("path").attr("d", "M0.637695 0C4.46689 23.8113 25.1088 42 50 42C74.8912 42 95.5331 23.8113 99.3623 0H100V210.5H90V188.981C89.9999 186.22 87.7614 183.981 85 183.981C82.2386 183.981 80.0001 186.22 80 188.981V210.5H60V183.983C60 181.222 57.7614 178.983 55 178.983C52.2386 178.983 50 181.222 50 183.983V210.5H39.9775C39.7395 207.96 37.6021 205.973 35 205.973C32.3979 205.973 30.2605 207.96 30.0225 210.5H20V144C20 141.239 17.7614 139 15 139C12.2386 139 10 141.239 10 144V210.5H0V0H0.637695Z").attr("fill", "#AA185F");
 					dripSvg.append("rect").attr("x", 20).attr("y", 197).attr("width", 10).attr("height", 48).attr("rx", 5).attr("fill", "#AA185F");
