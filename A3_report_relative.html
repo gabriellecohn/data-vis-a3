@@ -1,0 +1,570 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<title>Vis & Society Assignment 3</title>
+	<link rel="stylesheet" href="https://vis-society.github.io/assignments/report.css" />
+	<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+</head>
+
+<body>
+	<header>
+		<h1>
+			<small>Assignment 3</small>
+			Visualization Critique & Redesign
+		</h1>
+
+		<p>
+			<strong>Your Name</strong> — <em>Your MIT Email Address</em>
+		</p>
+	</header>
+
+	<main>
+		<section>
+			<h2>Reading & Critique</h2>
+
+			<figure>
+				<img src="https://vis-society.github.io/assets/imgs/covid-spiral.png" alt="" />
+			</figure>
+
+			<p>
+				Insights about the data/visualization:
+			</p>
+
+			<ul>
+				<li>INSIGHT 1</li>
+				<li>INSIGHT 2</li>
+				<li>INSIGHT 3</li>
+			</ul>
+
+			<p>
+				Design Critique:
+			</p>
+
+			<p>
+				DESCRIBE YOUR CRITIQUE IN 1-2 PARAGRAPHS.
+			</p>
+		</section>
+
+		<section>
+			<h2>Visualization Sketches</h2>
+
+      <figure>
+				<img src="IMAGE_FILENAME" alt="" />
+				<figcaption>
+          BRIEF CAPTION HERE.
+				</figcaption>
+			</figure>
+
+			<p>
+				Design Rationale for Sketch 1:
+			</p>
+
+			<ul>
+				<li>RATIONALE 1</li>
+				<li>RATIONALE 2</li>
+				<li>RATIONALE 3</li>
+			</ul>
+
+			<figure>
+				<img src="IMAGE_FILENAME" alt="" />
+				<figcaption>
+          BRIEF CAPTION HERE.
+				</figcaption>
+			</figure>
+
+			<p>
+				Design Rationale for Sketch 2:
+			</p>
+
+			<ul>
+				<li>RATIONALE 1</li>
+				<li>RATIONALE 2</li>
+				<li>RATIONALE 3</li>
+			</ul>
+
+			<figure>
+				<img src="IMAGE_FILENAME" alt="" />
+				<figcaption>
+          BRIEF CAPTION HERE.
+				</figcaption>
+			</figure>
+
+			<p>
+				Design Rationale for Sketch 3:
+			</p>
+
+			<ul>
+				<li>RATIONALE 1</li>
+				<li>RATIONALE 2</li>
+				<li>RATIONALE 3</li>
+			</ul>
+		</section>
+
+		<section>
+			<h2>Final Visualization Design</h2>
+      
+			<figure id="covid-variants-figure">
+				<div id="covid-variants-chart"></div>
+				<figcaption>
+					COVID-19 new cases per month (outer dark purple circle) with variant composition (inner colored circles). Circle sizes: outer = total new cases that month; inner = variant percentage × monthly new cases. United States, 2020–2022.
+				</figcaption>
+			</figure>
+
+			<figure id="covid-stacked-figure">
+				<div id="covid-stacked-area-chart"></div>
+				<figcaption>
+					Stacked area chart of new infections by variant over time. Each region is a strain; height at a date is the number of new cases attributed to that variant. Data: combined_covid_us_cases_nan.csv (United States).
+				</figcaption>
+			</figure>
+
+		</section>
+
+		<section>
+			<h2>Final Writeup</h2>
+
+			<p>
+        DESCRIBE YOUR RATIONALE TO JUSTIFY THE DECISIONS FOR YOUR FINAL DESIGN.
+				WHAT ARE YOU TRYING TO CONVEY, AND HOW DOES YOUR DESIGN FACILITATE THIS?
+      </p>
+
+			<p>
+        REFLECT ON HOW YOUR FINAL DESIGN DOES OR DOES NOT ADDRESS YOUR ORIGINAL CRITIQUE.
+				WHAT TENSIONS OR TRADEOFFS DID YOU ENCOUNTER? WHAT DID NOT WORK OUT AS ANTICIPATED?
+      </p>
+		</section>
+	</main>
+
+	<script>
+	(function() {
+		const MONTH_LABELS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+		const VARIANT_COLORS = {
+			Beta: "#e67e22",
+			Eta: "#7dce82",
+			Omicron: "#c0392b",
+			Mu: "#e056fd",
+			Kappa: "#3498db",
+			Other: "#1e8449",
+			Alpha: "#9b59b6",
+			Gamma: "#1abc9c",
+			Delta: "#f39c12",
+			Epsilon: "#95a5a6",
+			Iota: "#e74c3c",
+			Lambda: "#34495e"
+		};
+
+		// Extract canonical variant name from perCountryData cluster names.
+		// Examples:
+		//   "21I (Delta)"        -> "Delta"
+		//   "20H (Beta, V2)"     -> "Beta"
+		//   "S:677H.Robin1"      -> "S:677H.Robin1" (may later be colored as Other)
+		function canonicalVariant(name) {
+			const paren = name.match(/\(([^)]+)\)/);
+			if (paren) {
+				const inner = paren[1].split(",")[0].trim();
+				return inner || "Other";
+			}
+			return name;
+		}
+
+		function variantColor(v) {
+			return VARIANT_COLORS[v] || "#7f8c8d";
+		}
+
+		const parseDate = d3.timeParse("%Y-%m-%d");
+
+		Promise.all([
+			d3.csv("COVID_US_cases.csv"),
+			d3.json("perCountryData.json")
+		]).then(function([casesRowsRaw, perCountry]) {
+			// --- Daily cases (drop last row, clamp negatives to 0) ---
+			const casesRows = casesRowsRaw.slice(0, Math.max(0, casesRowsRaw.length - 1));
+			let dailyCases = casesRows
+				.map(d => {
+					const date = parseDate(d.date);
+					if (!date) return null;
+					const newConfirmed = Math.max(0, +d.new_confirmed || 0);
+					return { date, dateStr: d.date, newConfirmed };
+				})
+				.filter(d => d !== null)
+				.sort((a, b) => a.date - b.date);
+
+			if (!dailyCases.length) return;
+
+			const casesStartDate = dailyCases[0].date;
+			const casesEndDate = dailyCases[dailyCases.length - 1].date;
+
+			// --- Parse perCountryData.json for USA distributions and canonical percentages ---
+			const usaTimepoints = [];
+			const canonicalSet = new Set();
+			const regions = perCountry && perCountry.regions ? perCountry.regions : [];
+
+			regions.forEach(region => {
+				(region.distributions || []).forEach(entry => {
+					if (entry.country !== "USA" || !Array.isArray(entry.distribution)) return;
+					entry.distribution.forEach(tp => {
+						const date = parseDate(tp.week);
+						const totalSeq = +tp.total_sequences || 0;
+						if (!date || totalSeq <= 0) return;
+						const counts = tp.cluster_counts || {};
+						const canonicalCounts = {};
+						for (const [rawName, rawCount] of Object.entries(counts)) {
+							const c = canonicalVariant(rawName);
+							const count = +rawCount || 0;
+							if (count <= 0) continue;
+							canonicalCounts[c] = (canonicalCounts[c] || 0) + count;
+						}
+						let sumCanonical = Object.values(canonicalCounts).reduce((a, b) => a + b, 0);
+						if (sumCanonical < totalSeq) {
+							const extra = totalSeq - sumCanonical;
+							canonicalCounts.Other = (canonicalCounts.Other || 0) + extra;
+							sumCanonical += extra;
+						}
+						const percByVariant = {};
+						for (const [c, val] of Object.entries(canonicalCounts)) {
+							if (val <= 0) continue;
+							percByVariant[c] = val / totalSeq;
+							canonicalSet.add(c);
+						}
+						if (!Object.keys(percByVariant).length) return;
+						usaTimepoints.push({ date, percByVariant });
+					});
+				});
+			});
+
+			usaTimepoints.sort((a, b) => a.date - b.date);
+			if (!canonicalSet.has("Other")) canonicalSet.add("Other");
+
+			// --- Interpolate bi-weekly percentages to daily percentages across cases range ---
+			const dailyPerc = new Map(); // key: +date (ms), value: { variant -> fraction }
+
+			if (!usaTimepoints.length) {
+				// No variant data at all: everything is Other.
+				dailyCases.forEach(dc => {
+					dailyPerc.set(+dc.date, { Other: 1 });
+				});
+			} else {
+				const firstTpDate = usaTimepoints[0].date;
+				const lastTpDate = usaTimepoints[usaTimepoints.length - 1].date;
+				let idx = 0;
+
+				dailyCases.forEach(dc => {
+					const t = dc.date;
+					let percMap = {};
+
+					if (t < firstTpDate) {
+						percMap = { Other: 1 };
+					} else if (t > lastTpDate) {
+						percMap = Object.assign({}, usaTimepoints[usaTimepoints.length - 1].percByVariant);
+					} else {
+						while (idx + 1 < usaTimepoints.length && t > usaTimepoints[idx + 1].date) {
+							idx += 1;
+						}
+						const a = usaTimepoints[idx];
+						const b = usaTimepoints[Math.min(idx + 1, usaTimepoints.length - 1)];
+						if (!b || a.date.getTime() === b.date.getTime()) {
+							percMap = Object.assign({}, a.percByVariant);
+						} else {
+							const span = b.date - a.date;
+							const alpha = (t - a.date) / span;
+							const keys = new Set([
+								...Object.keys(a.percByVariant),
+								...Object.keys(b.percByVariant)
+							]);
+							keys.forEach(k => {
+								const p0 = a.percByVariant[k] || 0;
+								const p1 = b.percByVariant[k] || 0;
+								percMap[k] = p0 + (p1 - p0) * alpha;
+							});
+						}
+						let sum = Object.values(percMap).reduce((x, y) => x + y, 0);
+						if (sum < 0.999) {
+							percMap.Other = (percMap.Other || 0) + (1 - sum);
+						}
+					}
+
+					dailyPerc.set(+t, percMap);
+				});
+			}
+
+			// --- Aggregate daily variant fractions into monthly variant-specific case counts ---
+			const monthlyMap = new Map(); // monthKey -> { total, byVariant: { v -> cases } }
+
+			dailyCases.forEach(dc => {
+				const cases = dc.newConfirmed;
+				if (cases <= 0) return;
+				const monthKey = dc.dateStr.slice(0, 7);
+				let bucket = monthlyMap.get(monthKey);
+				if (!bucket) {
+					bucket = { total: 0, byVariant: {} };
+					monthlyMap.set(monthKey, bucket);
+				}
+				bucket.total += cases;
+				const percMap = dailyPerc.get(+dc.date) || { Other: 1 };
+				for (const [v, frac] of Object.entries(percMap)) {
+					if (!frac || frac <= 0) continue;
+					const add = cases * frac;
+					if (add <= 0) continue;
+					bucket.byVariant[v] = (bucket.byVariant[v] || 0) + add;
+					canonicalSet.add(v);
+				}
+			});
+
+			// Build grid data: 2020–2022, Jan–Dec (cells without cases will just have no circles)
+			const years = [2020, 2021, 2022];
+			const months = [];
+			years.forEach(y => {
+				for (let m = 1; m <= 12; m++) {
+					const key = y + "-" + (m < 10 ? "0" + m : m);
+					const bucket = monthlyMap.get(key);
+					const monthlyNewCases = bucket ? bucket.total : 0;
+					const variants = [];
+					let maxVariantCases = 0;
+					let maxVariantName = null;
+					if (bucket) {
+						for (const [v, val] of Object.entries(bucket.byVariant)) {
+							if (val > 0) {
+								variants.push({ variant: v, cases: val });
+								if (val > maxVariantCases) {
+									maxVariantCases = val;
+									maxVariantName = v;
+								}
+							}
+						}
+					}
+					months.push({
+						key,
+						year: y,
+						monthIndex: m - 1,
+						monthLabel: MONTH_LABELS[m - 1],
+						monthlyNewCases,
+						variants,
+						maxVariantCases,
+						maxVariantName
+					});
+				}
+			});
+
+			const maxMonthlyCases = d3.max(months, d => d.monthlyNewCases) || 1;
+			const allVariantNames = [...canonicalSet].sort();
+
+			const container = d3.select("#covid-variants-chart");
+			const width = Math.min(900, container.node().getBoundingClientRect().width || 900);
+			const cellSize = Math.min(52, (width - 80) / 14);
+			const chartWidth = 80 + 12 * cellSize;
+			const chartHeight = 60 + 3 * cellSize;
+			const padding = { top: 28, right: 12, bottom: 40, left: 44 };
+
+			const svg = container.append("svg")
+				.attr("width", chartWidth)
+				.attr("height", chartHeight)
+				.attr("viewBox", [0, 0, chartWidth, chartHeight]);
+
+			const outerScaleFactor = 1.25;
+			const packScale = 0.88;
+			const cellGap = 6;
+			const maxInnerR = ((cellSize - cellGap) / 2) / outerScaleFactor;
+			// Fix the mapping so that the outer circle area consistently represents
+			// 25 million people (25M new infections) regardless of the data range.
+			const referenceCases = 25_000_000;
+			const radiusScale = d3.scaleSqrt().domain([0, referenceCases]).range([0, maxInnerR]);
+			const maxOuterRadius = radiusScale(referenceCases) * outerScaleFactor;
+
+			// Year labels
+			const rowG = svg.append("g").attr("class", "rows");
+			years.forEach((y, i) => {
+				rowG.append("text")
+					.attr("x", padding.left - 8)
+					.attr("y", padding.top + (i + 0.5) * cellSize)
+					.attr("text-anchor", "end")
+					.attr("dominant-baseline", "middle")
+					.style("font-size", "11px")
+					.text(y);
+			});
+			// Month labels
+			const colG = svg.append("g").attr("class", "cols");
+			MONTH_LABELS.forEach((label, j) => {
+				colG.append("text")
+					.attr("x", padding.left + (j + 0.5) * cellSize)
+					.attr("y", padding.top - 6)
+					.attr("text-anchor", "middle")
+					.style("font-size", "10px")
+					.text(label);
+			});
+
+			const cellsG = svg.append("g")
+				.attr("transform", `translate(${padding.left},${padding.top})`);
+
+			const formatMaxCases = d3.format(".2s");
+
+			months.forEach((cellData, idx) => {
+				const col = idx % 12;
+				const row = Math.floor(idx / 12);
+				const cx = (col + 0.5) * cellSize;
+				const cy = (row + 0.5) * cellSize;
+				const monthlyNewCases = cellData.monthlyNewCases;
+				const outerRadius = maxOuterRadius;
+				if (monthlyNewCases > 0) {
+					const cell = cellsG.append("g")
+						.attr("class", "cell")
+						.attr("transform", `translate(${cx},${cy})`);
+					cell.append("circle")
+						.attr("r", outerRadius)
+						.attr("fill", "none")
+						.attr("stroke", "#4a1942")
+						.attr("stroke-width", 1.5);
+				}
+				const variants = cellData.variants;
+				if (!variants.length) {
+					// Still optionally show maxVariantCases label (which will be 0 for empty months)
+					if (cellData.maxVariantCases > 0) {
+						cellsG.append("text")
+							.attr("x", cx)
+							.attr("y", cy + outerRadius + 10)
+							.attr("text-anchor", "middle")
+							.style("font-size", "9px")
+							.text(formatMaxCases(cellData.maxVariantCases));
+					}
+					return;
+				}
+				const packRadius = Math.max(outerRadius * packScale, 2);
+				const root = {
+					id: "root",
+					value: 0,
+					children: variants.map(v => ({ ...v, value: v.cases }))
+				};
+				const rootNode = d3.hierarchy(root).sum(d => d.value);
+				const pack = d3.pack().size([2 * packRadius, 2 * packRadius]).padding(4);
+				pack(rootNode);
+				const packG = cellsG.append("g")
+					.attr("class", "pack")
+					.attr("transform", `translate(${cx - packRadius},${cy - packRadius})`);
+				rootNode.children.forEach(node => {
+					packG.append("circle")
+						.attr("cx", node.x)
+						.attr("cy", node.y)
+						.attr("r", node.r)
+						.attr("fill", variantColor(node.data.variant))
+						.attr("stroke", "rgba(0,0,0,0.2)")
+						.attr("stroke-width", 0.5);
+				});
+				if (cellData.maxVariantCases > 0) {
+					cellsG.append("text")
+						.attr("x", cx)
+						.attr("y", cy + outerRadius + 10)
+						.attr("text-anchor", "middle")
+						.style("font-size", "9px")
+						.text(formatMaxCases(cellData.maxVariantCases));
+				}
+			});
+
+			// Legend
+			const legend = svg.append("g")
+				.attr("class", "legend")
+				.attr("transform", `translate(${padding.left},${chartHeight - 22})`);
+			const legendItems = allVariantNames.length ? allVariantNames : ["Other"];
+			legendItems.forEach((name, i) => {
+				const g = legend.append("g").attr("transform", `translate(${i * 58}, 0)`);
+				g.append("circle").attr("r", 4).attr("cx", 4).attr("cy", 5).attr("fill", variantColor(name));
+				g.append("text").attr("x", 12).attr("y", 5).attr("dy", "0.35em").style("font-size", "9px").text(name);
+			});
+		}).catch(err => {
+			document.getElementById("covid-variants-chart").innerHTML =
+				"<p>Could not load data. Serve this page from a local server (e.g. python3 -m http.server 8000) and open from localhost.</p><pre>" + err.message + "</pre>";
+		});
+	})();
+
+	// Stacked area chart: new infections by strain over time (combined_covid_us_cases_nan.csv)
+	(function() {
+		const CASE_COLUMNS = ["date","new_confirmed","new_deceased","new_recovered","new_tested","cumulative_confirmed","cumulative_deceased","cumulative_recovered","cumulative_tested"];
+		const STACK_COLORS = {
+			Alpha: "#9b59b6", Beta: "#e67e22", Gamma: "#1abc9c", Delta: "#f39c12", Epsilon: "#95a5a6",
+			Eta: "#7dce82", Iota: "#e74c3c", Kappa: "#3498db", Lambda: "#34495e", Mu: "#e056fd",
+			Omicron: "#c0392b", others: "#1e8449", non_who: "#16a085", unknown: "#7f8c8d"
+		};
+		function stackColor(key) { return STACK_COLORS[key] || "#" + Math.floor(Math.random()*16777215).toString(16).padStart(6,"0"); }
+
+		d3.csv("combined_covid_us_cases_nan.csv").then(function(raw) {
+			const variantKeys = raw.length ? Object.keys(raw[0]).filter(k => !CASE_COLUMNS.includes(k)) : [];
+			const data = raw.map(d => {
+				const row = { date: d3.timeParse("%Y-%m-%d")(d.date) };
+				variantKeys.forEach(k => { row[k] = Math.max(0, Number(d[k]) || 0); });
+				return row;
+			}).filter(d => d.date != null).sort((a, b) => a.date - b.date);
+
+			if (!data.length) return;
+
+			// 7-day moving average (trailing): each day averages itself + previous 6 days
+			const windowSize = 7;
+			const rollingSums = Object.fromEntries(variantKeys.map(k => [k, 0]));
+			const queue = [];
+			const smoothed = [];
+			for (const row of data) {
+				queue.push(row);
+				for (const k of variantKeys) rollingSums[k] += row[k] || 0;
+				if (queue.length > windowSize) {
+					const old = queue.shift();
+					for (const k of variantKeys) rollingSums[k] -= old[k] || 0;
+				}
+				const denom = queue.length;
+				const avgRow = { date: row.date };
+				for (const k of variantKeys) avgRow[k] = (rollingSums[k] / denom) || 0;
+				smoothed.push(avgRow);
+			}
+
+			const container = d3.select("#covid-stacked-area-chart");
+			const width = Math.min(900, container.node().getBoundingClientRect().width || 900);
+			const height = 360;
+			const margin = { top: 20, right: 20, bottom: 50, left: 50 };
+			const innerWidth = width - margin.left - margin.right;
+			const innerHeight = height - margin.top - margin.bottom;
+
+			const xScale = d3.scaleTime().domain(d3.extent(smoothed, d => d.date)).range([0, innerWidth]);
+			const stack = d3.stack().keys(variantKeys).value((d, key) => d[key] || 0);
+			const stacked = stack(smoothed);
+			const yMax = d3.max(stacked, s => d3.max(s, d => d[1]));
+			const yScale = d3.scaleLinear().domain([0, yMax]).range([innerHeight, 0]).nice();
+
+			const area = d3.area()
+				.x(d => xScale(d.data.date))
+				.y0(d => yScale(d[0]))
+				.y1(d => yScale(d[1]))
+				.curve(d3.curveMonotoneX);
+
+			const svg = container.append("svg").attr("width", width).attr("height", height).attr("viewBox", [0, 0, width, height]);
+			const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
+
+			g.selectAll("path")
+				.data(stacked)
+				.join("path")
+				.attr("fill", d => stackColor(d.key))
+				.attr("d", area);
+
+			g.append("g")
+				.attr("transform", `translate(0,${innerHeight})`)
+				.call(d3.axisBottom(xScale).ticks(8).tickFormat(d3.timeFormat("%Y-%m")))
+				.selectAll("text").attr("font-size", "10px");
+
+			g.append("g")
+				.call(d3.axisLeft(yScale).ticks(6))
+				.selectAll("text").attr("font-size", "10px");
+
+			// Legend (right side): variants that have any positive value
+			const hasData = new Set();
+			stacked.forEach(s => { if (d3.max(s, d => d[1] - d[0]) > 0) hasData.add(s.key); });
+			const legendKeys = variantKeys.filter(k => hasData.has(k));
+			if (legendKeys.length > 0) {
+				const legend = svg.append("g").attr("class", "stack-legend").attr("transform", `translate(${width - margin.right - 120},${margin.top})`);
+				legendKeys.forEach((key, i) => {
+					const item = legend.append("g").attr("transform", `translate(0,${i * 14})`);
+					item.append("rect").attr("width", 10).attr("height", 10).attr("fill", stackColor(key));
+					item.append("text").attr("x", 14).attr("y", 10).attr("font-size", "9px").text(key);
+				});
+			}
+		}).catch(err => {
+			document.getElementById("covid-stacked-area-chart").innerHTML =
+				"<p>Could not load data. Serve from a local server.</p><pre>" + err.message + "</pre>";
+		});
+	})();
+	</script>
+</body>
+</html>

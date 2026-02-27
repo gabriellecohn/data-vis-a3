@@ -1,0 +1,1001 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<title>Vis & Society Assignment 3</title>
+	<link rel="stylesheet" href="https://vis-society.github.io/assignments/report.css" />
+	<style>
+		#covid-variants-chart { width: 100%; min-height: 420px; overflow-x: auto; overflow-y: visible; }
+	</style>
+	<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+</head>
+
+<body>
+	<header>
+		<h1>
+			<small>Assignment 3</small>
+			Visualization Critique & Redesign
+		</h1>
+
+		<p>
+			<strong>Gabrielle Cohn</strong> — <em>gcohn@mit.edu</em>
+		</p>
+	</header>
+
+	<main>
+		<section>
+			<h2>Reading & Critique</h2>
+
+			<figure>
+				<img src="https://vis-society.github.io/assets/imgs/covid-spiral.png" alt="" />
+			</figure>
+
+			<p>
+				Insights about the data/visualization:
+			</p>
+
+			<ul>
+				<li>I see at the beginning of COVID-19 (in January 2020), there were very few cases (basically just a line).</li>
+				<li>By April, there are visibly more cases, with a sharp change from a line to a band, which then stays constant for a while until July when the red region gets a bit thicker.</li>
+				<li>There is another big increase between November and December of 2020, but then by February it tapers back down a bit.</li>
+				<li>It becomes quite thin in June of 2021 (the thinnest it will be for the rest of the visualization), but starts thickening rapidly again in August.</li>
+				<li>It reaches a local maximum in August 2021, then tapers back a little until December 2021, when it starts widening again very significantly (seeming to reach its absolute widest) in January of 2022.</li>
+				<li>Pattern-wise, it seems like cases form a thick region, then taper for a while before increasing again and tapering again (as opposed to continuously growing, shrinking, or staying constant).</li>
+				<li>It looks like a peak is underway right where the visual cuts off, as the red region is flaring outwards, and we don't know how thick it will eventually grow. This aspect definitely creates a sense of uncertainy, making the viewer ask "what will happen next?" </li>
+			</ul>
+
+			<p>
+				Design Critique:
+			</p>
+
+			<p>
+				Things I did like:
+
+<ul>
+	<li>While it was definitely a bit unfamiliar to me at first, I think I do actually like the way that time is laid out in a spiral. In particular, having the months be laid out in a circle is intuitively aligned with how we count time, as a repeating cycle. The spirals of each year were like rings in a tree. I prefer this visualization to having a bunch of calendars next to each other, which - while a more familiar representation of months - might have been harder to read. A minor note - while it wouldn’t have looked as minimalist, it might have been helpful to me to see the other month names. Similarly to if someone asks me where “p” is in the alphabet, I have to do mental counting to fill in the missing months. I do appreciate the year demarcations, though.</li>
+	<li>In addition to being a good way to represent time, the spiral allowed for a pretty concise use of space - if the shape were laid out flat (horizontally or vertically) the user might have to do some scrolling to see the whole thing. Despite this, it doesn’t feel too crowded - I think the spacing between rings of the spiral is good.</li>
+	<li>It is easy to immediately identify the periods where there were a lot of new cases, as the eye is quickly able to find areas of extremity. We can easily see as cases rise and fall in continuous regions (e.g. Feburary 2021 is clearly thicker than March 2021).</li>
+	<li>I this is a relatively easily understandable diagram, after the initial process of learning how to read it.</li>
+</ul>
+
+Things I didn’t like:
+
+<ul>
+	<li>There is a scale provided (showing what 150K cases looks like), but it was much harder to mentally “overlay” the scale onto the graph than it was to compare the thickness/thinness of different parts of the graph. Ultimately, I didn’t find this scale very useful, and just read the spiral as “more” or “fewer” cases.</li>
+	<li>The article is about the spread of the Omicron variant, but we don’t see any variants on this graph - it’s all just red. I think the image would better complement the article if it incorporated some of this data, even if it were just a mark/dot to show when Omicron showed up. It might also be nice to have a “Covid began here” dot just to make it clear which direction to read things.</li>
+	<li>Similarly, the article is talking about whether Omicron will lead to more deaths or hospitalizations (Omicron is more transmissible, but potentially less severe). It might have been helpful to have information about hospital capacity, deaths, and vaccines (or some subset of this info) somehow integrated, since as the article points out infection rates are only one factor which impact how bad a wave will be.</li>
+	<li>This is a more minor note, but I don’t like the “vibe” of the graph, it makes me think of a tapeworm.</li>
+</ul>
+
+My main takeaway (if I were reading this in 2022) would be that cases had been rapidly increasing since December. I think that was <i>part</i> of what the article wanted to convey, but since I didn’t learn anything about variants or severity or hospital capacity, it wasn’t clear how bad this was.
+			</p>
+		</section>
+
+		<section>
+			<h2>Visualization Sketches</h2>
+
+      <figure>
+				<img src="sketch_1.png" alt="" />
+				<figcaption>
+          Sketch 1: A slight modification to the original visualization, where different variants are shown using different colors.
+				</figcaption>
+			</figure>
+
+			<p>
+				Design Rationale for Sketch 1:
+			</p>
+
+			<ul>
+				<li>My goal with this sketch was to address some of the smaller things I didn't like about the original visualization, e.g. the lack of labels for all months, while also integrating some information that I thought was lacking, i.e. information about different variants, as sub-layers of color composing the main band.</li>
+				<li>I was hoping this graph would communicate more dynamic information - not only are covid cases exploding, but it's being driven by a specific variant. By adding colors for variants, I break up the mystery of the single big red band. I also wanted to better align with the information that was being conveyed in the article, which was primarily focused on the rise of Omicron.</li>
+				<li>What worked well:
+					<ul>
+						<li>Color bands to provide an easy way to track variants over time</li>
+						<li>Adds more visual interest to the graph</li>
+						<li>More clear labeling of dates</li>
+					</ul>
+				</li>
+				<li>What didn't work well:
+					<ul>
+						<li>I am still hampered by the issues of the original visualization, e.g. hard to compare to contingous sections, scale is basically useless</li>
+						<li>Based on responses to the the original visualization that I saw on Reddit, many people did not find the spiral of time cute, and just wanted a simple x, y graph. (Note - I read these after writing my critique, so they did not influence me)</li>
+						<li>Added difficulty of comparing thickness of different variants across time.</li>
+					</ul>
+				</li>
+				<li>For my next sketch, I wanted to get away from the original design, and come up with something that was easier to look at and more variant-focused.  </li>
+			</ul>
+
+			<figure>
+				<img src="sketch_2.png" alt="" />
+				<figcaption>
+          Sketch 2: A reimagining of the data which is focused on variants, inspired by petri dishes.
+				</figcaption>
+			</figure>
+
+			<p>
+				Design Rationale for Sketch 2:
+			</p>
+
+			<ul>
+				<li>My goal with this sketch was to do a more drastic redesign, and emphasize the dynamics of changing variants in a way that would be easier to immediately grock than trying to mentally untangle layers of a spiral.</li>
+				<li>While Covid is a virus and not a bacteria, I was inspired by the aesthetic of petri dishes, which I felt more vicerally aligned with the topic of disease and evolution.
+					<ul>
+						<li>Each outer circle represents a fixed number of individuals, and the volume of each inner circle represents the number of new cases due to a specific variant in a given month.</li>
+						<li>Rows represent years, and columsn represent months - we can easily scan across a year, or down a column to see how things have changed within the same month from year to year.</li>
+					</ul>
+				</li>
+				<li>I was also curious about the effect of simplifying the data - in the csv we have basically continuous time data, i.e. an entry for every single day, but in this visualization I discretize time into months, so it's more like snapshots than a continuous timeline.</li>
+				<li>What worked well:
+					<ul>
+						<li>I think that this is an evocative visualization because it looks somewhat biological (as compared to a line graph). It's also easy to look at overall, it doesn't feel too crowded or overwhelming.</li>
+						<li>You can easily see variant composition changing from month to month, and quickly see whether a given month had a lot of small variants or one big variant.</li>
+						<li>Consistent sizing of the outer circles means you can have an easy frame of reference for the inner circles (as opposed to having to mentally drag the scale over, as in the original visualization) </li>
+					</ul>
+				</li>
+				<li>What didn't work well:
+					<ul>
+						<li>As we learned in class, volume is not the easiest way for people to compare things, and we often have mental bias in what we think a shape 2x larger would look like. Additionally, variant sampling tells us something about the approximate percentages of variants at a given time, but is not a perfect metric. Therefore, this is not a very good visualization if you want to understand exact numbers.</li>
+						<li>There is more information I would like to include, e.g. hospitalizations, but I couldn't think of a clear way to do so that would work well with the current design.</li>
+						<li>We do lose some of the cicular aspect of time, and this visualization makes the assumption of the viewer reading right to left, up to down, which is not the case for everyone (although the audience would primarily be American).</li>
+					</ul>
+				</li>
+				<li>For my next sketch, I wanted to try just doing the "straightforward" thing, and as informative as possible without getting too cluttered.</li>
+			</ul>
+
+			<figure>
+				<img src="sketch_3.png" alt="" />
+				<figcaption>
+          Sketch 3: A more straightforward/traditional visualization of the data, still including variants.
+				</figcaption>
+			</figure>
+
+			<p>
+				Design Rationale for Sketch 3:
+			</p>
+
+			<ul>
+				<li>The original NYT visualization (and my first sketch based off of it) were both trying something very novel but maybe a bit too quirky. As I mentioned, people on r/dataisbeautiful were mostly in favor of just doing things in a clear, straightforward way. I think there is something to be said for following convention, as it maximizes the chance that the average viewer who has seen charts before will be able to instantly grasp the data.</li>
+				<li>I wanted to integrate some of the information that was missing from my first two sketches, like deaths and hospitalizations, as different layers in the graph</li>
+				<li>Because of the straightforward timeline, I could easily add milestones like "first vaccine approved", or "first appearance of the Omicron variant".</li>
+				<li>I also considered adding a sub-section to the graph showing velocity of change, to help users understand the rate at which new cases were increasing or decreasing.</li>
+				<li>What worked well
+					<ul>
+						<li>I think this is a pretty straightforward visualization, which provides the viewer useful info that aligns with the content of the article (which was speculating how the new Omicron variant might impact deaths and hospitalizations).</li>
+						<li>The left-to-right timeline is easy to follow, and the viewer can quickly spot milestone events and peaks/troughs.</li>
+					</ul>
+				</li>
+				<li>What didn't work well
+					<ul>
+						<li>I exchanged information about variants for information about deaths and hospitalizations, although I do have milestones for new variants. </li>
+						<li>I didn't find this visualization as exciting to create, and I don't think it would be as exciting or memorable to look at.</li>
+						<li>I think the layering might get tricky to read depending on how the scales of the data (new cases, deaths, hospitalizations) compare to each other.</li>
+					</ul>
+				</li>
+			</ul>
+		</section>
+
+		<section>
+			<h2>Final Visualization Design</h2>
+      
+			<figure id="covid-variants-figure">
+				<div id="covid-variants-chart"></div>
+				<figcaption id="covid-variants-caption">
+					New COVID-19 cases per month from January 2020 to September 2022. Each dark purple ring represents 7.5 million people, while each circle within the ring represents a covid variant. The volume of the variant corresponds to the number of new cases attributed to that variant. Note that because January 2022 was an exceptionally high month in terms of new infections, the variant representing Omicron is external to the ring (in a "dripping" effect). Different colors correspond to different variants.  The icon next to December 2020 indicates that this is when vaccines first started to be administered in the United States.
+				</figcaption>
+			</figure>
+
+			<p>Variant Data Citation: Emma B. Hodcroft. 2021. "CoVariants: SARS-CoV-2 Mutations and Variants of Interest." https://covariants.org/</p>
+			<!-- <figure id="covid-stacked-figure">
+				<div id="covid-stacked-area-chart"></div>
+				<figcaption>
+					Stacked area chart of new infections by variant over time. Each region is a strain; height at a date is the number of new cases attributed to that variant. Data: combined_covid_us_cases_nan.csv (United States).
+				</figcaption>
+			</figure> -->
+			
+
+		</section>
+
+		<section>
+			<h2>Final Writeup</h2>
+
+			<!-- As different visualization designs can emphasize different aspects of a dataset, your writeup should document what aspects of the data you are attempting to most effectively communicate. In short, what message are you trying to convey?
+
+Document the visual encodings you used and why they are appropriate for the data and your specific message. These decisions include the choice of visualization (mark) type, size, color, scale, and other visual elements, as well as the use of sorting or other data transformations. How do these decisions facilitate effective communication? Just as important, also note which aspects of the data might be obscured or down-played due to your visualization design. -->
+			<p>Ultimately, I decided to create something pretty close to my second sketch. I liked the way that the "petri dishes" reflected the nature of the data, and I felt that this visualization most clearly told the story of different variants over time. As in the first sketch, variants are easily comparable to each other at any point in time through color, but they also have their own space - each variant is a separate bubble, not an overlapping layer. I used color as an identity channel, and 2D volume as a magnitude channel indicating the number of new cases attributable to each variant in a given month. The variant circles are distributed in 2D space, but their exact position doesn't encode any information. I thought about having each variant be sized relatively to its month, as this avoid the problem of outlier months like January 2022 and months with relatively few new cases distributed across a group of variants, like June 2021, but this would mean losing information about how COVID itself was waxing and waning overall.
+				This was a trade-off I made between a fully case-count focused visualization (like the original) vs a fully variant focused visualization (using relative sizing). I found the case-count version mysterious and uninformative, and I found the relative sizing version (which I created in an earlier iteration) misleading. 
+				To create my visualization, I did the following data processing steps:  
+				<ul>
+					<li>I found a dataset which contained information about covid variants, with sequence counts for different variants at various timepoints across various countries. Data was originally provided by GISAID, and is currently available through Github thanks to Emma Hodcroft </li>
+					<li>This dataset only had information at ~2 weeks intervals, as compared to the "COVID_US_cases.csv" dataset, which had daily information. </li>
+					<li>For each existing timepoint, I computed the percentage of each variant against the total number of sequences for that timepoint. Any leftover sequences were categorized as "unknown".</li>
+					<li>I then used these bi-weekly fractions to interpolate daily fractions (to match my new cases dataset). So if one variant had 10% of the sequences at one point in time, and 20% two weeks later, each day in between would be a linear interpolation between 10% and 20%. This way, percentages will change smoothly, and always add up to 100% at any given day.</li>
+					<li>I multiplied the count of new cases per day with the daily variant fractions to get new cases attributable to each variant per day.</li>
+					<li>I then summed up the new cases attributable to each variant per month to get total new cases per variant per month.</li>
+					<li>Because the GISAID datasaet began a few months after the "COVID_US_cases.csv" dataset, I assigned all cases prior to the start of the GISAID data to unknown.</li>
+					<li>There were a lot of smaller/less known variants like "20C/S:80Y", which I felt added extra clutter without providing much information since people mostly just know about big variants like Omicron or Delta. Consequently, I grouped these all under "non_who" variants.</li>
+					<li>Note: I also excluded the last row of COVID_US_cases.csv, as it looked like bad/erroneous data (it had negative values)</li>
+				</ul>
+			</p>
+			The month of January 2022 presented a problem for me. There was a huge increase in the number of cases, with ~25 million new cases - 4x as many as in the next highest month. I went into Tableau and also checked with Google to confirm that this really happened and wasn't just an outlier/mistake but it looked like this was really what happened. I thought for a while about how to address this. As I mentioned, I considered having variants be sized relative to their month. This "looked" the best, i.e. every month was well-filled with very visible variant bubbles. However, doing that would totally discard absolute case count information. I also considered log-scaling the counts. However, I figured that since it is already non-trivial for viewers to compare volumes, adding another layer of complexity ("twice the volume actually means 10x more") would be very confusing and at that point I might as well just do relative sizing. I tried just making the outer ring for January 2022 giant, but this didn't look very good, as it broke up the grid of same-sized outer rings. 
+			Eventually, I created current visualization, where Omicron is "overflowing" the container of January. While I wouldn't say this is a perfect solution, it does 1. keep ring sizes consistent, 2. retain the volume = absolute value count paradigm 3. draw attention to the fact that January 2022 was a crazy month 4. stick with the "biological" theme. Creating this effect was another challenge since I wanted to have a cool-looking drip while also maintaining the correct volume of pixels to represent the number of people who got Omicron. I did this using the following method:
+			<ul>
+				<li>In Figma, I created a circle with radius 50. This represents 7.5 million people (as in my visualization). I then created a shape that was the same width as the circle , and subtracted various cutouts from it to get the "drip" look. I then computed how many pixels it took up. </li>
+				<li>There were ~19.5 million new Omicron cases. 50 pixel radius = 7853.98163397 pixels, so my drip should take up  (19.5 million / 7.5 million) * 7853.98163397 pixels. I messed with the sizing until my shape matched that number</li>
+			</ul>
+			My goal is for a viewer to look at this visualization, and be able to read the broad strokes of the story of COVID from 2020 to 2022. We can see case count rapidly increasing as the volume of the variant bubbles grow. As sequencing efforts take off, more variants appear, shifting away from the gray "unknown". One can easily see the dip in June of 2021 when there were relatively few new cases, and the rapid rise of new variants like Delta and Omicron. I also included a small annotation to indicate when vaccines started rolling out. 
+			While, as I pointed out in my sketch notes, this is not the best visualization for gleaning exact numbers, I think it does communicate <i>change</i> effectively using color and size - two dimensions it is very easy for people to apprehend at a glance.
+			As also mentioned in the sketch notes, there is additional information that could have been interesting/relevant (hospitalizations, deaths), which this visualization does not convey. I could have added more elements, but I didn't want to make things too complicated and draw away from the main narrative. Looking at the data this way also downplays the day to day changes, in favor of a high-level takeaway. Through daily changes we can see trends, but we don't look to carefully at any individual point. By limiting the visualization to a comparatively small number of subplots (33), the viewer can actually think about each month. One thing that I thought was interesting and surprising when looking at the data this was was how quickly Delta seemed to drop off after Omicron rose to prominence. Seeing this led to me to check out a few papers (<a href="https://pubmed.ncbi.nlm.nih.gov/35503007/">here</a> and <a href="https://pubmed.ncbi.nlm.nih.gov/35841797/">here</a>) which expanded on this phenomenon. 
+			
+			<p>Reflections on Final design vs critique: 
+				<ul>
+					<li>Addressed:
+						<ul>
+							<li>My visualization includes variant information, which I felt was a key element missing from the original, particularly given to focus of the article</li>
+							<li>My scale (the outer ring representing 7.5 million people) is always close to the data (variant bubbles) which makes for easier comparison than having a single scale legend in the top left</li>
+							<li>Includes clear month annotations for every month</li>
+							<li>Includes clear month annotations for every month, and also has an annotation for the introduction of vaccines, as well as new case count per month</li>
+							<li>Does not look worm-like</li>
+						</ul>
+					</li>
+					<li>Not addresed:
+						<ul>
+							<li>I did lose the cicular representation of time, which I kind of liked in the original</li>
+							<li>The user still has to compare volumes, although I think it may be easier to compare volumes of circles than of random wavy shapes in a spiral</li>
+							<li>It's easy to compare variant bubbles within a single year/month, but harder to compare them between two distant months</li>
+							<li>Still doesn't include deaths or hospitalizations</li>
+							<li>Reading left-right up-down might be more culturally specific than following a spiral</li>
+						</ul>
+					</li>
+				</ul>
+				
+				<!-- Did the process of “critique by redesign” help you identify some of the challenges of communicating this data, and perhaps some design tensions or tradeoffs (i.e., that you weren’t able to address all the critiques you had initially levied?). -->
+			I do think the process of "critique by redesign" helped me identify some challanges of the data. I have more appreciation for the difficulty of layering many data sources within a single graph, both in terms of finding a way to neatly display them, and in terms of the data processing required to get multiple data sources to the same scale and granularity (as noted, I had to do some approximating using linear interpolation). Additionally, the dataset itself was a bit trickhy - while the original visualization stopped right at the huge spike in January, our data continued past that and it was troublesome to integrate the outlier month. 
+			As I mentioned, I tried to strike a balance between case-count focused design and variant-focused design, which was one tension. Another tradeoff I made was between presenting very granular (e.g. daily) data vs high level snapshots (monthly). Daily data might have been better for tracking trends, but monthly data allows the user to pay attention to the specifics of each circle individually and draw specific insights.
+			</p>
+		</section>
+	</main>
+
+	<script>
+	(function() {
+		const MONTH_LABELS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+		// WHO-named variants only; other lineages -> non_who; unassigned -> Other (unknown)
+		const WHO_VARIANTS = new Set([
+			"Alpha", "Beta", "Gamma", "Delta", "Epsilon", "Eta", "Iota", "Kappa", "Lambda", "Mu", "Omicron"
+		]);
+		// Omicron = drip color; all others in blue, green, or purple shades
+		const VARIANT_COLORS = {
+			Omicron: "#AA185F",       // RED-PINK DRIP (DO NOT CHANGE)
+			Alpha:   "#6886af",       // blue-purple
+			Beta:    "#d7adbe",       // pink-beige
+			Gamma:   "#ab94b0",       // muted lavender
+			Delta:   "#116594",       // deep blue
+			Epsilon: "#242d62",       // navy blue
+			Eta:     "#585387",       // violet
+			Iota:    "#adb7dc",       // dusty blue
+			Kappa:   "#ffa7dc",       // light blue-gray
+			Lambda:  "#82465c",       // deep rose
+			Mu:      "#c56477",       // mauve
+			Other:   "#b3bfc8",       // muted blue-gray (for "Other", not unknown)
+			non_who: "#25A66F",       // blue-green
+			unknown: "#9E9E9E"        // gray for unknown (as instructed)
+		};
+		// Palette for any variant not in map: as distinct as possible in blue, green, purple spectrum (deterministic by name)
+		const VARIANT_PALETTE = [
+			"#23499F", "#46A28B", "#5B42B7", "#3AB49C", "#4360C6", "#24966D", "#7959E4", "#1C797C",
+			"#6B82D6", "#25B066", "#9746C7", "#3751C8", "#74D0C1", "#4738A8", "#52B1A2", "#B3ACDA",
+			"#37567E", "#6A4BC5", "#306B5C", "#5EABD7"
+		];
+
+		// Extract canonical variant name from perCountryData cluster names.
+		// Examples:
+		//   "21I (Delta)"        -> "Delta"
+		//   "20H (Beta, V2)"     -> "Beta"
+		//   "S:677H.Robin1"      -> "S:677H.Robin1" (may later be colored as Other)
+		function canonicalVariant(name) {
+			const paren = name.match(/\(([^)]+)\)/);
+			if (paren) {
+				const inner = paren[1].split(",")[0].trim();
+				return inner || "Other";
+			}
+			return name;
+		}
+
+		function variantColor(v) {
+			if (VARIANT_COLORS[v] != null) return VARIANT_COLORS[v];
+			// Deterministic color from name so e.g. 20G/S:677H.Robin2 and 20A/S:126A differ
+			let h = 0;
+			for (let i = 0; i < v.length; i++) h = ((h << 5) - h) + v.charCodeAt(i) | 0;
+			return VARIANT_PALETTE[Math.abs(h) % VARIANT_PALETTE.length];
+		}
+
+		const parseDate = d3.timeParse("%Y-%m-%d");
+
+		Promise.all([
+			d3.csv("COVID_US_cases.csv"),
+			d3.json("perCountryData.json")
+		]).then(function([casesRowsRaw, perCountry]) {
+			// --- Daily cases (drop last row, clamp negatives to 0) ---
+			const casesRows = casesRowsRaw.slice(0, Math.max(0, casesRowsRaw.length - 1));
+			let dailyCases = casesRows
+				.map(d => {
+					const date = parseDate(d.date);
+					if (!date) return null;
+					const newConfirmed = Math.max(0, +d.new_confirmed || 0);
+					const newDeceased = Math.max(0, +d.new_deceased || 0);
+					return { date, dateStr: d.date, newConfirmed, newDeceased };
+				})
+				.filter(d => d !== null)
+				.sort((a, b) => a.date - b.date);
+
+			if (!dailyCases.length) return;
+
+			const casesStartDate = dailyCases[0].date;
+			const casesEndDate = dailyCases[dailyCases.length - 1].date;
+
+			// --- Parse perCountryData.json: use only the FIRST USA distribution ---
+			const usaTimepoints = [];
+			const canonicalSet = new Set();
+			const regions = perCountry && perCountry.regions ? perCountry.regions : [];
+			let totalNonWhoSequences = 0;
+			let timepointsWithNonWho = 0;
+
+			let usaDistributionUsed = false;
+			regions.forEach(region => {
+				if (usaDistributionUsed) return;
+				(region.distributions || []).forEach(entry => {
+					if (usaDistributionUsed) return;
+					if (entry.country !== "USA" || !Array.isArray(entry.distribution)) return;
+					usaDistributionUsed = true; // only use this first USA
+					entry.distribution.forEach(tp => {
+						const date = parseDate(tp.week);
+						const totalSeq = +tp.total_sequences || 0;
+						if (!date || totalSeq <= 0) return;
+						const counts = tp.cluster_counts || {};
+						const canonicalCounts = {};
+						for (const [rawName, rawCount] of Object.entries(counts)) {
+							const c = canonicalVariant(rawName);
+							const count = +rawCount || 0;
+							if (count <= 0) continue;
+							const cLower = (c && String(c)).toLowerCase();
+							const whoMatch = [...WHO_VARIANTS].find(w => w.toLowerCase() === cLower);
+							const key = whoMatch ? whoMatch : "non_who";
+							canonicalCounts[key] = (canonicalCounts[key] || 0) + count;
+						}
+						const nonWhoCount = canonicalCounts["non_who"] || 0;
+						if (nonWhoCount > 0) {
+							totalNonWhoSequences += nonWhoCount;
+							timepointsWithNonWho += 1;
+						}
+						let sumCanonical = Object.values(canonicalCounts).reduce((a, b) => a + b, 0);
+						if (sumCanonical < totalSeq) {
+							const extra = totalSeq - sumCanonical;
+							canonicalCounts.unknown = (canonicalCounts.unknown || 0) + extra;
+							sumCanonical += extra;
+						}
+						const percByVariant = {};
+						for (const [c, val] of Object.entries(canonicalCounts)) {
+							if (val <= 0) continue;
+							percByVariant[c] = val / totalSeq;
+							canonicalSet.add(c);
+						}
+						if (!Object.keys(percByVariant).length) return;
+						usaTimepoints.push({ date, percByVariant });
+					});
+				});
+			});
+
+			console.log("Non-WHO variant count (first USA only):", {
+				timepointsWithNonWho,
+				totalNonWhoSequences,
+				canonicalSetHasNonWho: canonicalSet.has("non_who"),
+				usaTimepointsCount: usaTimepoints.length
+			});
+
+			usaTimepoints.sort((a, b) => a.date - b.date);
+			if (!canonicalSet.has("unknown")) canonicalSet.add("unknown");
+			if (!canonicalSet.has("non_who")) canonicalSet.add("non_who");
+
+			// --- Interpolate bi-weekly percentages to daily percentages across cases range ---
+			const dailyPerc = new Map(); // key: +date (ms), value: { variant -> fraction }
+
+			if (!usaTimepoints.length) {
+				// No variant data at all: everything is unknown.
+				dailyCases.forEach(dc => {
+					dailyPerc.set(+dc.date, { unknown: 1 });
+				});
+			} else {
+				const firstTpDate = usaTimepoints[0].date;
+				const lastTpDate = usaTimepoints[usaTimepoints.length - 1].date;
+				let idx = 0;
+
+				dailyCases.forEach(dc => {
+					const t = dc.date;
+					let percMap = {};
+
+					if (t < firstTpDate) {
+						percMap = { unknown: 1 };
+					} else if (t > lastTpDate) {
+						percMap = Object.assign({}, usaTimepoints[usaTimepoints.length - 1].percByVariant);
+					} else {
+						while (idx + 1 < usaTimepoints.length && t > usaTimepoints[idx + 1].date) {
+							idx += 1;
+						}
+						const a = usaTimepoints[idx];
+						const b = usaTimepoints[Math.min(idx + 1, usaTimepoints.length - 1)];
+						if (!b || a.date.getTime() === b.date.getTime()) {
+							percMap = Object.assign({}, a.percByVariant);
+						} else {
+							const span = b.date - a.date;
+							const alpha = (t - a.date) / span;
+							const keys = new Set([
+								...Object.keys(a.percByVariant),
+								...Object.keys(b.percByVariant)
+							]);
+							keys.forEach(k => {
+								const p0 = a.percByVariant[k] || 0;
+								const p1 = b.percByVariant[k] || 0;
+								percMap[k] = p0 + (p1 - p0) * alpha;
+							});
+						}
+						let sum = Object.values(percMap).reduce((x, y) => x + y, 0);
+						if (sum < 0.999) {
+							percMap.unknown = (percMap.unknown || 0) + (1 - sum);
+						}
+					}
+
+					dailyPerc.set(+t, percMap);
+				});
+			}
+
+			// --- Aggregate daily variant fractions into monthly variant-specific case counts ---
+			const monthlyMap = new Map(); // monthKey -> { total, totalDeaths, byVariant: { v -> cases } }
+
+			dailyCases.forEach(dc => {
+				const cases = dc.newConfirmed;
+				const deaths = dc.newDeceased;
+				if (cases <= 0 && deaths <= 0) return;
+				const monthKey = dc.dateStr.slice(0, 7);
+				let bucket = monthlyMap.get(monthKey);
+				if (!bucket) {
+					bucket = { total: 0, totalDeaths: 0, byVariant: {} };
+					monthlyMap.set(monthKey, bucket);
+				}
+				if (deaths > 0) bucket.totalDeaths += deaths;
+				if (cases > 0) {
+					bucket.total += cases;
+					const percMap = dailyPerc.get(+dc.date) || { unknown: 1 };
+					for (const [v, frac] of Object.entries(percMap)) {
+						if (!frac || frac <= 0) continue;
+						const add = cases * frac;
+						if (add <= 0) continue;
+						bucket.byVariant[v] = (bucket.byVariant[v] || 0) + add;
+						canonicalSet.add(v);
+					}
+				}
+			});
+
+			// Build grid data: 2020–2022, Jan–Dec (cells without cases will just have no circles)
+			const years = [2020, 2021, 2022];
+			const months = [];
+			years.forEach(y => {
+				for (let m = 1; m <= 12; m++) {
+					const key = y + "-" + (m < 10 ? "0" + m : m);
+					const bucket = monthlyMap.get(key);
+					const monthlyNewCases = bucket ? bucket.total : 0;
+					const monthlyDeaths = bucket ? bucket.totalDeaths : 0;
+					const variants = [];
+					let maxVariantCases = 0;
+					let maxVariantName = null;
+					if (bucket) {
+						for (const [v, val] of Object.entries(bucket.byVariant)) {
+							if (val > 0) {
+								variants.push({ variant: v, cases: val });
+								if (val > maxVariantCases) {
+									maxVariantCases = val;
+									maxVariantName = v;
+								}
+							}
+						}
+					}
+					months.push({
+						key,
+						year: y,
+						monthIndex: m - 1,
+						monthLabel: MONTH_LABELS[m - 1],
+						monthlyNewCases,
+						monthlyDeaths,
+						variants,
+						maxVariantCases,
+						maxVariantName
+					});
+				}
+			});
+
+			const maxMonthlyCases = d3.max(months, d => d.monthlyNewCases) || 1;
+			const maxMonthlyDeaths = d3.max(months, d => d.monthlyDeaths) || 1;
+			// Legend: every variant that appears in any month (so legend has at least as many labels as max sub-circles) + always non_who and unknown
+			const variantNamesFromData = new Set();
+			months.forEach(m => { (m.variants || []).forEach(v => variantNamesFromData.add(v.variant)); });
+			variantNamesFromData.add("non_who");
+			variantNamesFromData.add("unknown");
+			const allVariantNames = [...variantNamesFromData].sort();
+			console.log("Legend variant count:", allVariantNames.length, "items:", allVariantNames);
+
+			const container = d3.select("#covid-variants-chart");
+			// Use most of the container width so the graphic fills the space (cap 1200px for very wide screens)
+			const width = Math.min(1200, Math.max(400, container.node().getBoundingClientRect().width || 900));
+			const cellSize = Math.max(36, (width - 80) / 14);
+			const colStep = cellSize + 10; // extra horizontal spacing between month columns
+			const rowGap = 18; // extra vertical spacing between year rows
+			const rowHeight = cellSize + rowGap;
+			const legendItemWidth = 140;
+			const legendItemHeight = 20;
+			const padding = { top: 100, right: 44, bottom: 24, left: 44 };
+			const gridWidth = 12 * colStep;
+			// const legendBoxWidth = 220;
+			const chartWidth = padding.left + gridWidth + padding.right;
+			const legendGap = 160;
+			const chartHeight = padding.top + 3 * rowHeight + 36 + 56 + legendGap;
+
+			const svg = container.append("svg")
+				.attr("width", chartWidth)
+				.attr("height", chartHeight)
+				.attr("viewBox", [0, 0, chartWidth, chartHeight]);
+
+			// Figure title inside the SVG with more space and larger text
+			const figureTitle = "New COVID-19 infections by month in the United States from January 2020 to September 2022";
+			svg.append("text")
+				.attr("x", padding.left + gridWidth / 2)
+				.attr("y", padding.top - 38) // Increase vertical offset for more space above chart
+				.attr("text-anchor", "middle")
+				.style("font-size", "22px") // Make the title larger
+				.style("font-weight", "700")
+				.text(figureTitle);
+
+			// Reusable defs for the "deaths skull" icon.
+			const defs = svg.append("defs");
+			defs.append("mask")
+				.attr("id", "vis1-skull-jaw-mask")
+				.attr("maskUnits", "userSpaceOnUse")
+				.attr("maskContentUnits", "userSpaceOnUse")
+				.attr("x", 0)
+				.attr("y", 0)
+				.attr("width", 100)
+				.attr("height", 106)
+				.append("path")
+				.attr("fill", "white")
+				.attr("d", "M69 79C72.866 79 76 82.134 76 86V99C76 102.866 72.866 106 69 106H65V96.125C65 93.6397 62.9853 91.625 60.5 91.625C58.0147 91.625 56 93.6397 56 96.125V106H44V96.125C44 93.6397 41.9853 91.625 39.5 91.625C37.0147 91.625 35 93.6397 35 96.125V106H31C27.134 106 24 102.866 24 99V86C24 82.134 27.134 79 31 79H69Z");
+
+			defs.append("mask")
+				.attr("id", "vis1-skull-head-mask")
+				.attr("maskUnits", "userSpaceOnUse")
+				.attr("maskContentUnits", "userSpaceOnUse")
+				.attr("x", 0)
+				.attr("y", 0)
+				.attr("width", 100)
+				.attr("height", 106)
+				.append("path")
+				.attr("fill", "white")
+				.attr("d", "M50 0C77.6142 0 100 22.3858 100 50C100 70.8874 87.1905 88.7793 69 96.2588V88H30V95.835C12.3419 88.119 0 70.5025 0 50C0 22.3858 22.3858 0 50 0ZM86.8213 46.2725C83.4298 38.39 74.4835 34.6665 66.8398 37.9551C59.1965 41.2439 55.7495 50.2993 59.1406 58.1816C62.532 66.0641 71.4774 69.7883 79.1211 66.5C86.7648 63.2114 90.2127 54.1551 86.8213 46.2725ZM43.9648 45.8643C40.5734 37.9816 31.6272 34.2573 23.9834 37.5459C16.3399 40.8347 12.8928 49.891 16.2842 57.7734C19.6757 65.6557 28.6211 69.3792 36.2646 66.0908C43.9083 62.8023 47.3559 53.7468 43.9648 45.8643Z");
+
+			const outerScaleFactor = 1.25;
+			const packScale = 0.88;
+			const cellGap = 6;
+			const maxInnerR = ((cellSize - cellGap) / 2) / outerScaleFactor;
+			// All outer circles same size: volume represents 7.5M cases.
+			const referenceSmall = 7_500_000;
+			const radiusScale = d3.scaleSqrt().domain([0, referenceSmall]).range([0, maxInnerR]);
+			const maxOuterRadius = radiusScale(referenceSmall) * outerScaleFactor;
+			const leftViewMargin = 32;
+			const totalWidth = padding.left + gridWidth + padding.right;
+			svg.attr("width", totalWidth + leftViewMargin)
+				.attr("viewBox", [-leftViewMargin, 0, totalWidth + leftViewMargin, chartHeight]);
+
+			// Year labels: just left of first column (text-anchor: end)
+			const yearLabelX = padding.left - 8;
+			const rowG = svg.append("g").attr("class", "rows");
+			years.forEach((y, i) => {
+				rowG.append("text")
+					.attr("x", yearLabelX)
+					.attr("y", padding.top + (i + 0.5) * rowHeight)
+					.attr("text-anchor", "end")
+					.attr("dominant-baseline", "middle")
+					.style("font-size", "11px")
+					.text(y);
+			});
+			// Month labels
+			const colG = svg.append("g").attr("class", "cols");
+			MONTH_LABELS.forEach((label, j) => {
+				colG.append("text")
+					.attr("x", padding.left + (j + 0.5) * colStep)
+					.attr("y", padding.top - 6)
+					.attr("text-anchor", "middle")
+					.style("font-size", "10px")
+					.text(label);
+			});
+
+			const cellsG = svg.append("g")
+				.attr("transform", `translate(${padding.left},${padding.top})`);
+
+			const formatMonthlyCases = d3.format(",.0f");
+			const deathColor = d3.scaleLinear()
+				.domain([0, maxMonthlyDeaths])
+				.range(["#ffffff", "#000000"]);
+
+			const jan2022Key = "2022-01";
+			const skullWidth = 14;
+			const skullScale = skullWidth / 24; // original skull viewBox is 24x24
+			const skullHeight = 24 * skullScale;
+			const syringeScale = 16 / 490; // syringe icon: viewBox ~490, target ~16px wide
+			let maxContentBottomY = padding.top + 3 * rowHeight;
+
+			function drawSkull(x, y, fillColor, monthlyDeaths) {
+				const skull = cellsG.append("g")
+					.attr("transform", `translate(${x},${y}) scale(${skullScale})`);
+
+				// Original 24x24 skull: fill head with grayscale, keep stroke black.
+				skull.append("path")
+					.attr("d", "M12 4c4.418 0 8 3.358 8 7.5c0 1.901 -.755 3.637 -2 4.96l0 2.54a1 1 0 0 1 -1 1h-10a1 1 0 0 1 -1 -1v-2.54c-1.245 -1.322 -2 -3.058 -2 -4.96c0 -4.142 3.582 -7.5 8 -7.5z")
+					.attr("fill", fillColor)
+					.attr("stroke", "#000000")
+					.attr("stroke-width", 1)
+					.attr("stroke-linecap", "round")
+					.attr("stroke-linejoin", "round");
+				skull.append("path")
+					.attr("d", "M10 17v3")
+					.attr("fill", "none")
+					.attr("stroke", "#000000")
+					.attr("stroke-width", 1)
+					.attr("stroke-linecap", "round")
+					.attr("stroke-linejoin", "round");
+				skull.append("path")
+					.attr("d", "M14 17v3")
+					.attr("fill", "none")
+					.attr("stroke", "#000000")
+					.attr("stroke-width", 1)
+					.attr("stroke-linecap", "round")
+					.attr("stroke-linejoin", "round");
+				skull.append("path")
+					.attr("d", "M9 11m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0")
+					.attr("fill", "none")
+					.attr("stroke", "#000000")
+					.attr("stroke-width", 1)
+					.attr("stroke-linecap", "round")
+					.attr("stroke-linejoin", "round");
+				skull.append("path")
+					.attr("d", "M15 11m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0")
+					.attr("fill", "none")
+					.attr("stroke", "#000000")
+					.attr("stroke-width", 1)
+					.attr("stroke-linecap", "round")
+					.attr("stroke-linejoin", "round");
+
+				skull.append("title")
+					.text("Monthly deaths: " + Math.round(monthlyDeaths).toLocaleString("en-US"));
+			}
+
+			months.forEach((cellData, idx) => {
+				const col = idx % 12;
+				const row = Math.floor(idx / 12);
+				const cx = (col + 0.5) * colStep;
+				const cy = (row + 0.5) * rowHeight;
+				const isJan2022 = cellData.key === jan2022Key;
+				const ox = 0;
+				const oy = 0;
+				const monthlyNewCases = cellData.monthlyNewCases;
+				const outerRadius = maxOuterRadius;
+				// January 2022: draw drip first so it appears under the outer circle
+				if (isJan2022 && monthlyNewCases > 0) {
+					const dripScale = (2 * maxOuterRadius) / 100;
+					const dripG = cellsG.append("g")
+						.attr("class", "jan2022-drip")
+						.attr("transform", `translate(${cx - maxOuterRadius},${cy + maxOuterRadius-26}) scale(${dripScale})`);
+					const dripSvg = dripG.append("svg").attr("viewBox", "0 0 100 316").attr("width", 100).attr("height", 316);
+					dripSvg.append("path").attr("d", "M0.637695 0C4.46689 23.8113 25.1088 42 50 42C74.8912 42 95.5331 23.8113 99.3623 0H100V210.5H90V188.981C89.9999 186.22 87.7614 183.981 85 183.981C82.2386 183.981 80.0001 186.22 80 188.981V210.5H60V183.983C60 181.222 57.7614 178.983 55 178.983C52.2386 178.983 50 181.222 50 183.983V210.5H39.9775C39.7395 207.96 37.6021 205.973 35 205.973C32.3979 205.973 30.2605 207.96 30.0225 210.5H20V144C20 141.239 17.7614 139 15 139C12.2386 139 10 141.239 10 144V210.5H0V0H0.637695Z").attr("fill", "#AA185F");
+					dripSvg.append("rect").attr("x", 20).attr("y", 197).attr("width", 10).attr("height", 48).attr("rx", 5).attr("fill", "#AA185F");
+					dripSvg.append("rect").attr("x", 0).attr("y", 190).attr("width", 10).attr("height", 107).attr("rx", 5).attr("fill", "#AA185F");
+					dripSvg.append("rect").attr("x", 40).attr("y", 197).attr("width", 10).attr("height", 119).attr("rx", 5).attr("fill", "#AA185F");
+					dripSvg.append("rect").attr("x", 60).attr("y", 197).attr("width", 10).attr("height", 76).attr("rx", 5).attr("fill", "#AA185F");
+					dripSvg.append("rect").attr("x", 60).attr("y", 277).attr("width", 10).attr("height", 11).attr("rx", 5).attr("fill", "#AA185F");
+					dripSvg.append("rect").attr("width", 10).attr("height", 25).attr("rx", 5).attr("transform", "matrix(1 0 0 -1 20 280)").attr("fill", "#AA185F");
+					dripSvg.append("rect").attr("x", 90).attr("y", 189).attr("width", 10).attr("height", 84).attr("rx", 5).attr("fill", "#AA185F");
+					dripSvg.append("rect").attr("x", 70).attr("y", 190).attr("width", 10).attr("height", 42).attr("rx", 5).attr("fill", "#AA185F");
+					dripSvg.append("path").attr("d", "M70 235.5L70.4336 233.982C70.7841 232.756 71.7625 231.809 73 231.5L70 225.5V235.5Z").attr("fill", "#AA185F");
+				}
+				if (monthlyNewCases > 0) {
+					const cell = cellsG.append("g")
+						.attr("class", "cell" + (isJan2022 ? " cell-jan2022" : ""))
+						.attr("transform", `translate(${cx + ox},${cy + oy})`);
+					cell.append("circle")
+						.attr("r", outerRadius)
+						.attr("fill", "white")
+						.attr("stroke", "#4a1942")
+						.attr("stroke-width", 1.5);
+					if (isJan2022 && cellData.variants && cellData.variants.length) {
+						const omicron = cellData.variants.find(v => v.variant === "Omicron");
+						const omicronCases = omicron ? omicron.cases : 0;
+						cell.append("title")
+							.text("January 2022 — Omicron: " + omicronCases.toLocaleString("en-US") + " new cases");
+					}
+				}
+				const variants = cellData.variants;
+				if (!variants.length) {
+					if (monthlyNewCases > 0) {
+						const labelY = cy + oy + outerRadius + 10;
+						const labelText = cellsG.append("text")
+							.attr("x", cx + ox)
+							.attr("y", labelY)
+							.attr("text-anchor", "middle")
+							.style("font-size", "9px");
+						labelText.append("tspan")
+							.attr("x", cx + ox)
+							.text(formatMonthlyCases(monthlyNewCases));
+						labelText.append("tspan")
+							.attr("x", cx + ox)
+							.attr("dy", "1.1em")
+							.text("new cases");
+						const skullY = labelY + 4;
+						drawSkull(cx + ox - skullWidth / 2, skullY, deathColor(cellData.monthlyDeaths || 0), cellData.monthlyDeaths || 0);
+						maxContentBottomY = Math.max(maxContentBottomY, padding.top + skullY + skullHeight);
+					}
+					return;
+				}
+				// Only pack variants that are present this month (cases > 0). Jan 2022: drip = Omicron, so exclude from pack.
+				const variantsToPack = (isJan2022 ? variants.filter(v => v.variant !== "Omicron") : variants)
+					.filter(v => v.cases > 0);
+				// Scale packed inner circles so 7.5M is the reference (consistent across months).
+				const monthScale = Math.min(1, Math.sqrt(monthlyNewCases / referenceSmall || 0));
+				const packRadius = Math.max(outerRadius * packScale * monthScale, 2);
+				const root = {
+					id: "root",
+					value: 0,
+					children: variantsToPack.length ? variantsToPack.map(v => ({ ...v, value: v.cases })) : []
+				};
+				const rootNode = d3.hierarchy(root).sum(d => d.value);
+				const pack = d3.pack().size([2 * packRadius, 2 * packRadius]).padding(4);
+				pack(rootNode);
+				const packG = cellsG.append("g")
+					.attr("class", "pack")
+					.attr("transform", `translate(${cx + ox - packRadius},${cy + oy - packRadius})`);
+				if (isJan2022) {
+					const omicron = variants.find(v => v.variant === "Omicron");
+					const omicronCases = omicron ? omicron.cases : 0;
+					packG.append("title")
+						.text("January 2022 — Omicron: " + omicronCases.toLocaleString("en-US") + " new cases");
+				}
+				if (rootNode.children) {
+					rootNode.children.forEach(node => {
+						packG.append("circle")
+							.attr("cx", node.x)
+							.attr("cy", node.y)
+							.attr("r", node.r)
+							.attr("fill", variantColor(node.data.variant))
+							.attr("stroke", "rgba(0,0,0,0.2)")
+							.attr("stroke-width", 0.5);
+					});
+				}
+
+				// December 2020: add small syringe icon at top-right of the outer circle
+				if (cellData.key === "2020-12" && monthlyNewCases > 0) {
+					const sx = cx + ox + outerRadius * 0.8;
+					const sy = cy + oy - outerRadius * 1.3;
+					const syringeG = cellsG.append("g")
+						.attr("class", "syringe-2020-12")
+						.attr("transform", `translate(${sx},${sy}) scale(${syringeScale})`);
+					syringeG.append("path")
+						.attr("d", "M455.767,34.296c-24.1-24.1-48.6-38.9-54.4-33c-4.7,4.7,3.9,21.8,20.6,40.8l-90.2,90.2l-32.2-32.3l-17.9,17.9l91.7,91.3l17.9-17.9l-33.8-33.4l90.2-89.8c19,16.3,36.1,25.3,40.8,20.6C494.667,82.496,479.867,58.396,455.767,34.296z")
+						.attr("fill", "#000000");
+					syringeG.append("polygon")
+						.attr("points", "366.767,69.696 346.967,50.196 312.367,84.796 331.767,104.296")
+						.attr("fill", "#000000");
+					syringeG.append("polygon")
+						.attr("points", "385.467,157.896 405.267,177.296 439.867,142.696 420.067,123.296")
+						.attr("fill", "#000000");
+					syringeG.append("polygon")
+						.attr("points", "100.967,295.496 193.867,388.396 359.367,223.196 266.167,130.296")
+						.attr("fill", "#000000");
+					syringeG.append("polygon")
+						.attr("points", "93.167,343.296 147.167,396.896 161.167,383.296 107.167,329.296")
+						.attr("fill", "#000000");
+					syringeG.append("path")
+						.attr("d", "M82.267,382.896l5.4,5.4l-84.7,84.7c-3.9,3.9-3.9,10.1,0,14l0,0c3.9,3.9,10.1,3.9,14,0l84.7-84.7l5.4,5.4l11.3-11.3l-25.3-24.9L82.267,382.896z")
+						.attr("fill", "#000000");
+				}
+				if (monthlyNewCases > 0) {
+					const dripScale = (2 * maxOuterRadius) / 100;
+					const labelY = isJan2022
+						? cy + maxOuterRadius + 316 * dripScale + 10
+						: cy + oy + outerRadius + 10;
+					const labelText = cellsG.append("text")
+						.attr("x", cx + ox)
+						.attr("y", labelY)
+						.attr("text-anchor", "middle")
+						.style("font-size", "9px");
+					labelText.append("tspan")
+						.attr("x", cx + ox)
+						.text(formatMonthlyCases(monthlyNewCases));
+					labelText.append("tspan")
+						.attr("x", cx + ox)
+						.attr("dy", "1.1em")
+						.text("new cases");
+					// const skullY = labelY + 4;
+					// drawSkull(cx + ox - skullWidth / 2, skullY, deathColor(cellData.monthlyDeaths || 0), cellData.monthlyDeaths || 0);
+					// maxContentBottomY = Math.max(maxContentBottomY, padding.top + skullY + skullHeight);
+				}
+			});
+
+			// Legend: place in a box below the grid, toward the right (avoiding the drip)
+			const legendCols = 2;
+			const legendBoxItemWidth = 150; // Widen each legend item
+			const legendBoxWidth = legendCols * legendBoxItemWidth + 150; // make sure legendBoxWidth is defined
+			const legendRows = Math.ceil(((allVariantNames.length || 1) / legendCols));
+			// Extra vertical space inside legend box for size reference circle (actual outer circle size)
+			const legendBoxHeight = (legendRows + 1) * legendItemHeight + 24;
+			const legendBoxX = totalWidth - legendBoxWidth - 400;
+			const legendBoxY = maxContentBottomY + 28;
+			svg.append("rect")
+				.attr("x", legendBoxX)
+				.attr("y", legendBoxY)
+				.attr("width", legendBoxWidth - 16)
+				.attr("height", legendBoxHeight)
+				.attr("fill", "#fff")
+				.attr("stroke", "#333")
+				.attr("stroke-width", 1.5);
+			const legend = svg.append("g")
+				.attr("class", "legend")
+				.attr("transform", `translate(${legendBoxX + 12},${legendBoxY + 12})`);
+			const legendLabel = (name) => name === "non_who" ? "Non-WHO" : name;
+			const legendItems = allVariantNames.length ? allVariantNames : ["Other"];
+			legendItems.forEach((name, i) => {
+				const col = i % legendCols;
+				const row = Math.floor(i / legendCols);
+				const g = legend.append("g").attr("transform", `translate(${col * legendBoxItemWidth},${row * legendItemHeight})`);
+				g.append("circle").attr("r", 4).attr("cx", 4).attr("cy", 5).attr("fill", variantColor(name));
+				g.append("text").attr("x", 12).attr("y", 5).attr("dy", "0.35em").style("font-size", "9px").text(legendLabel(name));
+			});
+
+			// Size legend: empty outer circle at ACTUAL size = 7.5 million people, placed to the right of the labels
+			const sizeLegendX = legendCols * legendBoxItemWidth - maxOuterRadius - 10;
+			const sizeLegendY = maxOuterRadius;
+			const sizeLegend = legend.append("g")
+				.attr("class", "size-legend")
+				.attr("transform", `translate(${sizeLegendX},${sizeLegendY})`);
+			sizeLegend.append("circle")
+				.attr("cx", 0)
+				.attr("cy", 0)
+				.attr("r", maxOuterRadius)
+				.attr("fill", "white")
+				.attr("stroke", "#4a1942")
+				.attr("stroke-width", 1.5);
+			sizeLegend.append("text")
+				.attr("x", maxOuterRadius + 6)
+				.attr("y", 0)
+				.attr("dy", "0.35em")
+				.style("font-size", "9px")
+				.text("= 7.5 million people");
+
+			// Add January 2022 Omicron count and Non-WHO count to caption
+			const jan2022 = months.find(m => m.key === jan2022Key);
+			const captionEl = document.getElementById("covid-variants-caption");
+			// if (captionEl) {
+			// 	let base = captionEl.textContent.trim();
+			// 	if (jan2022 && jan2022.variants) {
+			// 		const omicron = jan2022.variants.find(v => v.variant === "Omicron");
+			// 		const omicronCases = omicron ? omicron.cases : 0;
+			// 		base += " January 2022 Omicron: " + omicronCases.toLocaleString("en-US") + " new cases.";
+			// 	}
+			// 	base += " Non-WHO: " + timepointsWithNonWho + " timepoints, " + totalNonWhoSequences.toLocaleString("en-US") + " sequences (first USA only).";
+			// 	captionEl.textContent = base;
+			// }
+		}).catch(err => {
+			document.getElementById("covid-variants-chart").innerHTML =
+				"<p>Could not load data. Serve this page from a local server (e.g. python3 -m http.server 8000) and open from localhost.</p><pre>" + err.message + "</pre>";
+		});
+	})();
+
+	// Stacked area chart commented out per request
+	/*(function() {
+		const CASE_COLUMNS = ["date","new_confirmed","new_deceased","new_recovered","new_tested","cumulative_confirmed","cumulative_deceased","cumulative_recovered","cumulative_tested"];
+		const STACK_COLORS = {
+			Alpha: "#191d28",   // purple
+			Beta: "#b93c5e",    // strong blue
+			Gamma: "#2c4467",   // blue-green
+			Delta: "#c5c8d2",   // greenish-blue
+			Epsilon: "#3771ab", // teal
+			Eta: "#66223d",     // deep blue
+			Iota: "#4f617c",    // indigo
+			Kappa: "#54a9c9",   // muted blue
+			Lambda: "#222e48",  // violet
+			Mu: "#2e3d51",      // turquoise
+			Omicron: "#c0392b", // DO NOT CHANGE - bright red
+			others: "#247ba0",  // blue
+			non_who: "#38b000", // strong green
+			unknown: "#a259c6"  // purple
+		};
+		function stackColor(key) { return STACK_COLORS[key] || "#" + Math.floor(Math.random()*16777215).toString(16).padStart(6,"0"); }
+
+		d3.csv("combined_covid_us_cases_nan.csv").then(function(raw) {
+			const variantKeys = raw.length ? Object.keys(raw[0]).filter(k => !CASE_COLUMNS.includes(k)) : [];
+			const data = raw.map(d => {
+				const row = { date: d3.timeParse("%Y-%m-%d")(d.date) };
+				variantKeys.forEach(k => { row[k] = Math.max(0, Number(d[k]) || 0); });
+				return row;
+			}).filter(d => d.date != null).sort((a, b) => a.date - b.date);
+
+			if (!data.length) return;
+
+			// 7-day moving average (trailing): each day averages itself + previous 6 days
+			const windowSize = 7;
+			const rollingSums = Object.fromEntries(variantKeys.map(k => [k, 0]));
+			const queue = [];
+			const smoothed = [];
+			for (const row of data) {
+				queue.push(row);
+				for (const k of variantKeys) rollingSums[k] += row[k] || 0;
+				if (queue.length > windowSize) {
+					const old = queue.shift();
+					for (const k of variantKeys) rollingSums[k] -= old[k] || 0;
+				}
+				const denom = queue.length;
+				const avgRow = { date: row.date };
+				for (const k of variantKeys) avgRow[k] = (rollingSums[k] / denom) || 0;
+				smoothed.push(avgRow);
+			}
+
+			const container = d3.select("#covid-stacked-area-chart");
+			const width = Math.min(900, container.node().getBoundingClientRect().width || 900);
+			const height = 360;
+			const margin = { top: 20, right: 20, bottom: 50, left: 50 };
+			const innerWidth = width - margin.left - margin.right;
+			const innerHeight = height - margin.top - margin.bottom;
+
+			const xScale = d3.scaleTime().domain(d3.extent(smoothed, d => d.date)).range([0, innerWidth]);
+			const stack = d3.stack().keys(variantKeys).value((d, key) => d[key] || 0);
+			const stacked = stack(smoothed);
+			const yMax = d3.max(stacked, s => d3.max(s, d => d[1]));
+			const yScale = d3.scaleLinear().domain([0, yMax]).range([innerHeight, 0]).nice();
+
+			const area = d3.area()
+				.x(d => xScale(d.data.date))
+				.y0(d => yScale(d[0]))
+				.y1(d => yScale(d[1]))
+				.curve(d3.curveMonotoneX);
+
+			const svg = container.append("svg").attr("width", width).attr("height", height).attr("viewBox", [0, 0, width, height]);
+			const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
+
+			g.selectAll("path")
+				.data(stacked)
+				.join("path")
+				.attr("fill", d => stackColor(d.key))
+				.attr("d", area);
+
+			g.append("g")
+				.attr("transform", `translate(0,${innerHeight})`)
+				.call(d3.axisBottom(xScale).ticks(8).tickFormat(d3.timeFormat("%Y-%m")))
+				.selectAll("text").attr("font-size", "10px");
+
+			g.append("g")
+				.call(d3.axisLeft(yScale).ticks(6))
+				.selectAll("text").attr("font-size", "10px");
+
+			// Legend (right side): variants that have any positive value
+			const hasData = new Set();
+			stacked.forEach(s => { if (d3.max(s, d => d[1] - d[0]) > 0) hasData.add(s.key); });
+			const legendKeys = variantKeys.filter(k => hasData.has(k));
+			if (legendKeys.length > 0) {
+				const legend = svg.append("g").attr("class", "stack-legend").attr("transform", `translate(${width - margin.right - 120},${margin.top})`);
+				legendKeys.forEach((key, i) => {
+					const item = legend.append("g").attr("transform", `translate(0,${i * 14})`);
+					item.append("rect").attr("width", 10).attr("height", 10).attr("fill", stackColor(key));
+					item.append("text").attr("x", 14).attr("y", 10).attr("font-size", "9px").text(key);
+				});
+			}
+		}).catch(err => {
+			document.getElementById("covid-stacked-area-chart").innerHTML =
+				"<p>Could not load data. Serve from a local server.</p><pre>" + err.message + "</pre>";
+		});
+	})();*/
+	
+	</script>
+</body>
+</html>
