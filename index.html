@@ -179,7 +179,7 @@ My main takeaway (if I were reading this in 2022) would be that cases had been r
 			<figure id="covid-variants-figure">
 				<div id="covid-variants-chart"></div>
 				<figcaption id="covid-variants-caption">
-					New COVID-19 cases per month from January 2020 to September 2022. Each dark purple ring represents 7.5 million people, while each circle within the ring represents a covid variant. The volume of the variant corresponds to the number of new cases attributed to that variant. Note that because January 2022 was an exceptionally high month in terms of new infections, the variant representing Omicron is external to the ring (in a "dripping" effect). Different colors correspond to different variants.  The icon next to December 2020 indicates that this is when vaccines first started to be administered in the United States.
+					New COVID-19 cases per month from January 2020 to September 2022. Each dark purple ring represents 7.5 million people, while each circle within the ring represents a covid variant. The area of the variant corresponds to the number of new cases attributed to that variant. Note that because January 2022 was an exceptionally high month in terms of new infections, the variant representing Omicron is external to the ring (in a "dripping" effect). Different colors correspond to different variants.  The icon next to December 2020 indicates that this is when vaccines first started to be administered in the United States.
 				</figcaption>
 			</figure>
 
@@ -200,7 +200,7 @@ My main takeaway (if I were reading this in 2022) would be that cases had been r
 			<!-- As different visualization designs can emphasize different aspects of a dataset, your writeup should document what aspects of the data you are attempting to most effectively communicate. In short, what message are you trying to convey?
 
 Document the visual encodings you used and why they are appropriate for the data and your specific message. These decisions include the choice of visualization (mark) type, size, color, scale, and other visual elements, as well as the use of sorting or other data transformations. How do these decisions facilitate effective communication? Just as important, also note which aspects of the data might be obscured or down-played due to your visualization design. -->
-			<p>Ultimately, I decided to create something pretty close to my second sketch. I liked the way that the "petri dishes" reflected the nature of the data, and I felt that this visualization most clearly told the story of different variants over time. As in the first sketch, variants are easily comparable to each other at any point in time through color, but they also have their own space - each variant is a separate bubble, not an overlapping layer. I used color as an identity channel, and 2D volume as a magnitude channel indicating the number of new cases attributable to each variant in a given month. The variant circles are distributed in 2D space, but their exact position doesn't encode any information. I thought about having each variant be sized relatively to its month, as this avoid the problem of outlier months like January 2022 and months with relatively few new cases distributed across a group of variants, like June 2021, but this would mean losing information about how COVID itself was waxing and waning overall.
+			<p>Ultimately, I decided to create something pretty close to my second sketch. I liked the way that the "petri dishes" reflected the nature of the data, and I felt that this visualization most clearly told the story of different variants over time. As in the first sketch, variants are easily comparable to each other at any point in time through color, but they also have their own space - each variant is a separate bubble, not an overlapping layer. I used color as an identity channel, and area as a magnitude channel indicating the number of new cases attributable to each variant in a given month. The variant circles are distributed in 2D space, but their exact position doesn't encode any information. I thought about having each variant be sized relatively to its month, as this avoid the problem of outlier months like January 2022 and months with relatively few new cases distributed across a group of variants, like June 2021, but this would mean losing information about how COVID itself was waxing and waning overall.
 				This was a trade-off I made between a fully case-count focused visualization (like the original) vs a fully variant focused visualization (using relative sizing). I found the case-count version mysterious and uninformative, and I found the relative sizing version (which I created in an earlier iteration) misleading. 
 				To create my visualization, I did the following data processing steps:  
 				<ul>
@@ -215,8 +215,8 @@ Document the visual encodings you used and why they are appropriate for the data
 					<li>Note: I also excluded the last row of COVID_US_cases.csv, as it looked like bad/erroneous data (it had negative values)</li>
 				</ul>
 			</p>
-			The month of January 2022 presented a problem for me. There was a huge increase in the number of cases, with ~25 million new cases - 4x as many as in the next highest month. I went into Tableau and also checked with Google to confirm that this really happened and wasn't just an outlier/mistake but it seems accurate. I thought for a while about how to address this. As I mentioned, I considered having variants be sized relative to their month. This "looked" the best, i.e. every month was well-filled with very visible variant bubbles. However, doing that would totally discard absolute case count information. I also considered log-scaling the counts. However, I figured that since it is already non-trivial for viewers to compare volumes, adding another layer of complexity ("twice the volume actually means 10x more cases") would be very confusing and at that point I might as well just do relative sizing. I tried just making the outer ring for January 2022 giant, but this didn't look very good, as it broke up the grid of same-sized outer rings. 
-			Eventually, I created my current visualization, where Omicron is "overflowing" the container of January. While I wouldn't say this is a perfect solution, it does 1. keep ring sizes consistent, 2. retain the volume = absolute value count paradigm 3. draw attention to the fact that January 2022 was a crazy month 4. stick with the "biological" theme. Creating this effect was another challenge since I wanted to have a cool-looking drip while also maintaining the correct volume of pixels to represent the number of people who got Omicron. I did this using the following method:
+			The month of January 2022 presented a problem for me. There was a huge increase in the number of cases, with ~25 million new cases - 4x as many as in the next highest month. I went into Tableau and also checked with Google to confirm that this really happened and wasn't just an outlier/mistake but it seems accurate. I thought for a while about how to address this. As I mentioned, I considered having variants be sized relative to their month. This "looked" the best, i.e. every month was well-filled with very visible variant bubbles. However, doing that would totally discard absolute case count information. I also considered log-scaling the counts. However, I figured that since it is already non-trivial for viewers to compare areas/volumes, adding another layer of complexity ("twice the volume actually means 10x more cases") would be very confusing and at that point I might as well just do relative sizing. I tried just making the outer ring for January 2022 giant, but this didn't look very good, as it broke up the grid of same-sized outer rings. 
+			Eventually, I created my current visualization, where Omicron is "overflowing" the container of January. While I wouldn't say this is a perfect solution, it does 1. keep ring sizes consistent, 2. retain the area = absolute value count paradigm 3. draw attention to the fact that January 2022 was a crazy month 4. stick with the "biological" theme. Creating this effect was another challenge since I wanted to have a cool-looking drip while also maintaining the correct volume of pixels to represent the number of people who got Omicron. I did this using the following method:
 			<ul>
 				<li>In Figma, I created a circle with radius 50. This represents 7.5 million people (as in my visualization). I then created a shape that was the same width as the circle , and subtracted various cutouts from it to get the "drip" look. I then computed how many pixels it took up. </li>
 				<li>There were ~19.5 million new Omicron cases. 50 pixel radius = 7853.98163397 pixels, so my drip should take up  (19.5 million / 7.5 million) * 7853.98163397 pixels, relative to the circle. I messed with the shape length until my shape matched that number.</li>
@@ -240,7 +240,7 @@ Document the visual encodings you used and why they are appropriate for the data
 					<li>Not addresed:
 						<ul>
 							<li>I did lose the cicular representation of time, which I kind of liked in the original</li>
-							<li>The user still has to compare volumes, although I think it may be easier to compare volumes of circles than of random wavy shapes in a spiral</li>
+							<li>The user still has to compare areas, although I think it may be easier to compare areas of circles than of random wavy shapes in a spiral</li>
 							<li>It's easy to compare variant bubbles within a single year/month, but harder to compare them between two distant months</li>
 							<li>Still doesn't include deaths or hospitalizations</li>
 							<li>Reading left-right up-down might be more culturally specific than following a spiral</li>
@@ -579,7 +579,9 @@ Document the visual encodings you used and why they are appropriate for the data
 				.attr("d", "M50 0C77.6142 0 100 22.3858 100 50C100 70.8874 87.1905 88.7793 69 96.2588V88H30V95.835C12.3419 88.119 0 70.5025 0 50C0 22.3858 22.3858 0 50 0ZM86.8213 46.2725C83.4298 38.39 74.4835 34.6665 66.8398 37.9551C59.1965 41.2439 55.7495 50.2993 59.1406 58.1816C62.532 66.0641 71.4774 69.7883 79.1211 66.5C86.7648 63.2114 90.2127 54.1551 86.8213 46.2725ZM43.9648 45.8643C40.5734 37.9816 31.6272 34.2573 23.9834 37.5459C16.3399 40.8347 12.8928 49.891 16.2842 57.7734C19.6757 65.6557 28.6211 69.3792 36.2646 66.0908C43.9083 62.8023 47.3559 53.7468 43.9648 45.8643Z");
 
 			const outerScaleFactor = 1.25;
-			const packScale = 0.88;
+			// Strict area mapping: inner circles are calibrated to the full outer-ring area.
+			const packScale = 1;
+			const packPadding = 1.5;
 			const cellGap = 6;
 			const maxInnerR = ((cellSize - cellGap) / 2) / outerScaleFactor;
 			// All outer circles same size: volume represents 7.5M cases.
@@ -674,6 +676,15 @@ Document the visual encodings you used and why they are appropriate for the data
 					.text("Monthly deaths: " + Math.round(monthlyDeaths).toLocaleString("en-US"));
 			}
 
+			function packedChildrenArea(rootNode) {
+				if (!rootNode || !rootNode.children || !rootNode.children.length) return 0;
+				let area = 0;
+				rootNode.children.forEach(node => {
+					area += Math.PI * node.r * node.r;
+				});
+				return area;
+			}
+
 			months.forEach((cellData, idx) => {
 				const col = idx % 12;
 				const row = Math.floor(idx / 12);
@@ -743,16 +754,25 @@ Document the visual encodings you used and why they are appropriate for the data
 				// Only pack variants that are present this month (cases > 0). Jan 2022: drip = Omicron, so exclude from pack.
 				const variantsToPack = (isJan2022 ? variants.filter(v => v.variant !== "Omicron") : variants)
 					.filter(v => v.cases > 0);
-				// Scale packed inner circles so 7.5M is the reference (consistent across months).
-				const monthScale = Math.min(1, Math.sqrt(monthlyNewCases / referenceSmall || 0));
-				const packRadius = Math.max(outerRadius * packScale * monthScale, 2);
+				const packedCases = variantsToPack.reduce((sum, v) => sum + (v.cases || 0), 0);
+				const monthRatio = Math.max(0, packedCases / referenceSmall || 0);
+				const monthScale = Math.min(1, Math.sqrt(monthRatio));
+				const maxPackRadius = outerRadius * packScale;
+				const basePackRadius = Math.max(maxPackRadius * monthScale, 2);
 				const root = {
 					id: "root",
 					value: 0,
 					children: variantsToPack.length ? variantsToPack.map(v => ({ ...v, value: v.cases })) : []
 				};
+				const rootNodeBase = d3.hierarchy(root).sum(d => d.value);
+				const basePack = d3.pack().size([2 * basePackRadius, 2 * basePackRadius]).padding(packPadding);
+				basePack(rootNodeBase);
+				const baseArea = packedChildrenArea(rootNodeBase);
+				const targetArea = Math.PI * outerRadius * outerRadius * Math.min(1, monthRatio);
+				const areaScale = baseArea > 0 ? Math.sqrt(targetArea / baseArea) : 1;
+				const packRadius = Math.max(2, Math.min(maxPackRadius, basePackRadius * areaScale));
 				const rootNode = d3.hierarchy(root).sum(d => d.value);
-				const pack = d3.pack().size([2 * packRadius, 2 * packRadius]).padding(4);
+				const pack = d3.pack().size([2 * packRadius, 2 * packRadius]).padding(packPadding);
 				pack(rootNode);
 				const packG = cellsG.append("g")
 					.attr("class", "pack")
