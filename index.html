@@ -62,11 +62,11 @@ Things I didn’t like:
 <ul>
 	<li>There is a scale provided (showing what 150K cases looks like), but it was much harder to mentally “overlay” the scale onto the graph than it was to compare the thickness/thinness of different parts of the graph. Ultimately, I didn’t find this scale very useful, and just read the spiral as “more” or “fewer” cases.</li>
 	<li>The article is about the spread of the Omicron variant, but we don’t see any variants on this graph - it’s all just red. I think the image would better complement the article if it incorporated some of this data, even if it were just a mark/dot to show when Omicron showed up. It might also be nice to have a “Covid began here” dot just to make it clear which direction to read things.</li>
-	<li>Similarly, the article is talking about whether Omicron will lead to more deaths or hospitalizations (Omicron is more transmissible, but potentially less severe). It might have been helpful to have information about hospital capacity, deaths, and vaccines (or some subset of this info) somehow integrated, since as the article points out infection rates are only one factor which impact how bad a wave will be.</li>
+	<li>Similarly, the article is talking about whether Omicron will lead to more deaths or hospitalizations (Omicron is more contagious, but potentially less severe). It might have been helpful to have information about hospital capacity, deaths, and vaccines (or some subset of this info) somehow integrated, since as the article points out infection rates are only one factor which impact how bad a wave will be.</li>
 	<li>This is a more minor note, but I don’t like the “vibe” of the graph, it makes me think of a tapeworm.</li>
 </ul>
 
-My main takeaway (if I were reading this in 2022) would be that cases had been rapidly increasing since December. I think that was <i>part</i> of what the article wanted to convey, but since I didn’t learn anything about variants or severity or hospital capacity, it wasn’t clear how bad this was.
+My main takeaway (if I were reading this in 2022) would be that cases had been rapidly increasing since December. I think that was <i>part</i> of what the article wanted to convey, but since I didn’t learn anything about variants or severity or hospital capacity, it wasn’t clear what drove the changes in the case count, or what the impact would be.
 			</p>
 		</section>
 
@@ -90,14 +90,14 @@ My main takeaway (if I were reading this in 2022) would be that cases had been r
 				<li>What worked well:
 					<ul>
 						<li>Color bands to provide an easy way to track variants over time</li>
-						<li>Adds more visual interest to the graph</li>
+						<li>More visually interesting than the original graph</li>
 						<li>More clear labeling of dates</li>
 					</ul>
 				</li>
 				<li>What didn't work well:
 					<ul>
-						<li>I am still hampered by the issues of the original visualization, e.g. hard to compare to contingous sections, scale is basically useless</li>
-						<li>Based on responses to the the original visualization that I saw on Reddit, many people did not find the spiral of time cute, and just wanted a simple x, y graph. (Note - I read these after writing my critique, so they did not influence me)</li>
+						<li>I am still hampered by the issues of the original visualization, e.g. that it's hard to compare to discontinuous sections, and the scale is basically useless</li>
+						<li>Based on responses to the the original visualization that I saw on Reddit, many people did not find the spiral of time cute, and just wanted a simple x, y graph. (Note - I read these after writing my critique, so they did not influence my feedback)</li>
 						<li>Added difficulty of comparing thickness of different variants across time.</li>
 					</ul>
 				</li>
@@ -120,7 +120,7 @@ My main takeaway (if I were reading this in 2022) would be that cases had been r
 				<li>While Covid is a virus and not a bacteria, I was inspired by the aesthetic of petri dishes, which I felt more vicerally aligned with the topic of disease and evolution.
 					<ul>
 						<li>Each outer circle represents a fixed number of individuals, and the volume of each inner circle represents the number of new cases due to a specific variant in a given month.</li>
-						<li>Rows represent years, and columsn represent months - we can easily scan across a year, or down a column to see how things have changed within the same month from year to year.</li>
+						<li>Rows represent years, and columns represent months - we can easily scan across a year, or down a column to see how things have changed within the same month from year to year.</li>
 					</ul>
 				</li>
 				<li>I was also curious about the effect of simplifying the data - in the csv we have basically continuous time data, i.e. an entry for every single day, but in this visualization I discretize time into months, so it's more like snapshots than a continuous timeline.</li>
@@ -138,7 +138,7 @@ My main takeaway (if I were reading this in 2022) would be that cases had been r
 						<li>We do lose some of the cicular aspect of time, and this visualization makes the assumption of the viewer reading right to left, up to down, which is not the case for everyone (although the audience would primarily be American).</li>
 					</ul>
 				</li>
-				<li>For my next sketch, I wanted to try just doing the "straightforward" thing, and as informative as possible without getting too cluttered.</li>
+				<li>For my next sketch, I wanted to try just doing the "straightforward" thing, and be as informative as possible without getting too cluttered.</li>
 			</ul>
 
 			<figure>
@@ -210,20 +210,21 @@ Document the visual encodings you used and why they are appropriate for the data
 					<li>I then used these bi-weekly fractions to interpolate daily fractions (to match my new cases dataset). So if one variant had 10% of the sequences at one point in time, and 20% two weeks later, each day in between would be a linear interpolation between 10% and 20%. This way, percentages will change smoothly, and always add up to 100% at any given day.</li>
 					<li>I multiplied the count of new cases per day with the daily variant fractions to get new cases attributable to each variant per day.</li>
 					<li>I then summed up the new cases attributable to each variant per month to get total new cases per variant per month.</li>
-					<li>Because the GISAID datasaet began a few months after the "COVID_US_cases.csv" dataset, I assigned all cases prior to the start of the GISAID data to unknown.</li>
-					<li>There were a lot of smaller/less known variants like "20C/S:80Y", which I felt added extra clutter without providing much information since people mostly just know about big variants like Omicron or Delta. Consequently, I grouped these all under "non_who" variants.</li>
+					<li>Because the GISAID datasaet began a few months after the "COVID_US_cases.csv" dataset, I assigned all cases prior to the start of the GISAID data to "unknown".</li>
+					<li>There were a lot of smaller/less known variants like "20C/S:80Y", which I felt added extra clutter without providing much context since people mostly just know about big variants like Omicron or Delta. Consequently, I grouped these all under "non_WHO" variants.</li>
 					<li>Note: I also excluded the last row of COVID_US_cases.csv, as it looked like bad/erroneous data (it had negative values)</li>
 				</ul>
 			</p>
-			The month of January 2022 presented a problem for me. There was a huge increase in the number of cases, with ~25 million new cases - 4x as many as in the next highest month. I went into Tableau and also checked with Google to confirm that this really happened and wasn't just an outlier/mistake but it looked like this was really what happened. I thought for a while about how to address this. As I mentioned, I considered having variants be sized relative to their month. This "looked" the best, i.e. every month was well-filled with very visible variant bubbles. However, doing that would totally discard absolute case count information. I also considered log-scaling the counts. However, I figured that since it is already non-trivial for viewers to compare volumes, adding another layer of complexity ("twice the volume actually means 10x more") would be very confusing and at that point I might as well just do relative sizing. I tried just making the outer ring for January 2022 giant, but this didn't look very good, as it broke up the grid of same-sized outer rings. 
-			Eventually, I created current visualization, where Omicron is "overflowing" the container of January. While I wouldn't say this is a perfect solution, it does 1. keep ring sizes consistent, 2. retain the volume = absolute value count paradigm 3. draw attention to the fact that January 2022 was a crazy month 4. stick with the "biological" theme. Creating this effect was another challenge since I wanted to have a cool-looking drip while also maintaining the correct volume of pixels to represent the number of people who got Omicron. I did this using the following method:
+			The month of January 2022 presented a problem for me. There was a huge increase in the number of cases, with ~25 million new cases - 4x as many as in the next highest month. I went into Tableau and also checked with Google to confirm that this really happened and wasn't just an outlier/mistake but it seems accurate. I thought for a while about how to address this. As I mentioned, I considered having variants be sized relative to their month. This "looked" the best, i.e. every month was well-filled with very visible variant bubbles. However, doing that would totally discard absolute case count information. I also considered log-scaling the counts. However, I figured that since it is already non-trivial for viewers to compare volumes, adding another layer of complexity ("twice the volume actually means 10x more cases") would be very confusing and at that point I might as well just do relative sizing. I tried just making the outer ring for January 2022 giant, but this didn't look very good, as it broke up the grid of same-sized outer rings. 
+			Eventually, I created my current visualization, where Omicron is "overflowing" the container of January. While I wouldn't say this is a perfect solution, it does 1. keep ring sizes consistent, 2. retain the volume = absolute value count paradigm 3. draw attention to the fact that January 2022 was a crazy month 4. stick with the "biological" theme. Creating this effect was another challenge since I wanted to have a cool-looking drip while also maintaining the correct volume of pixels to represent the number of people who got Omicron. I did this using the following method:
 			<ul>
 				<li>In Figma, I created a circle with radius 50. This represents 7.5 million people (as in my visualization). I then created a shape that was the same width as the circle , and subtracted various cutouts from it to get the "drip" look. I then computed how many pixels it took up. </li>
-				<li>There were ~19.5 million new Omicron cases. 50 pixel radius = 7853.98163397 pixels, so my drip should take up  (19.5 million / 7.5 million) * 7853.98163397 pixels. I messed with the sizing until my shape matched that number</li>
+				<li>There were ~19.5 million new Omicron cases. 50 pixel radius = 7853.98163397 pixels, so my drip should take up  (19.5 million / 7.5 million) * 7853.98163397 pixels, relative to the circle. I messed with the shape length until my shape matched that number.</li>
+				<li>I exported the shape as an SVG, and then a sized it to be proportionally to the actual outer-ring circle.</li>
 			</ul>
 			My goal is for a viewer to look at this visualization, and be able to read the broad strokes of the story of COVID from 2020 to 2022. We can see case count rapidly increasing as the volume of the variant bubbles grow. As sequencing efforts take off, more variants appear, shifting away from the gray "unknown". One can easily see the dip in June of 2021 when there were relatively few new cases, and the rapid rise of new variants like Delta and Omicron. I also included a small annotation to indicate when vaccines started rolling out. 
 			While, as I pointed out in my sketch notes, this is not the best visualization for gleaning exact numbers, I think it does communicate <i>change</i> effectively using color and size - two dimensions it is very easy for people to apprehend at a glance.
-			As also mentioned in the sketch notes, there is additional information that could have been interesting/relevant (hospitalizations, deaths), which this visualization does not convey. I could have added more elements, but I didn't want to make things too complicated and draw away from the main narrative. Looking at the data this way also downplays the day to day changes, in favor of a high-level takeaway. Through daily changes we can see trends, but we don't look to carefully at any individual point. By limiting the visualization to a comparatively small number of subplots (33), the viewer can actually think about each month. One thing that I thought was interesting and surprising when looking at the data this was was how quickly Delta seemed to drop off after Omicron rose to prominence. Seeing this led to me to check out a few papers (<a href="https://pubmed.ncbi.nlm.nih.gov/35503007/">here</a> and <a href="https://pubmed.ncbi.nlm.nih.gov/35841797/">here</a>) which expanded on this phenomenon. 
+			As also mentioned in the sketch notes, there is additional information that could have been interesting/relevant (hospitalizations, deaths), which this visualization does not convey. I could have added more elements, but I didn't want to make things too complicated and draw away from the main narrative. Looking at the data this way also downplays the day to day changes, in favor of a high-level takeaway. Through daily changes we can see trends, but we don't look too carefully at any individual point. By limiting the visualization to a comparatively small number of subplots (33), the viewer can actually think about each month. One thing that I thought was interesting and surprising when looking at the data this was was how quickly Delta seemed to drop off after Omicron rose to prominence. Seeing this led to me to check out a few papers (<a href="https://pubmed.ncbi.nlm.nih.gov/35503007/">here</a> and <a href="https://pubmed.ncbi.nlm.nih.gov/35841797/">here</a>) which expanded on this phenomenon. 
 			
 			<p>Reflections on Final design vs critique: 
 				<ul>
@@ -248,8 +249,8 @@ Document the visual encodings you used and why they are appropriate for the data
 				</ul>
 				
 				<!-- Did the process of “critique by redesign” help you identify some of the challenges of communicating this data, and perhaps some design tensions or tradeoffs (i.e., that you weren’t able to address all the critiques you had initially levied?). -->
-			I do think the process of "critique by redesign" helped me identify some challanges of the data. I have more appreciation for the difficulty of layering many data sources within a single graph, both in terms of finding a way to neatly display them, and in terms of the data processing required to get multiple data sources to the same scale and granularity (as noted, I had to do some approximating using linear interpolation). Additionally, the dataset itself was a bit trickhy - while the original visualization stopped right at the huge spike in January, our data continued past that and it was troublesome to integrate the outlier month. 
-			As I mentioned, I tried to strike a balance between case-count focused design and variant-focused design, which was one tension. Another tradeoff I made was between presenting very granular (e.g. daily) data vs high level snapshots (monthly). Daily data might have been better for tracking trends, but monthly data allows the user to pay attention to the specifics of each circle individually and draw specific insights.
+			I do think the process of "critique by redesign" helped me identify some challanges of the data. I have more appreciation for the difficulty of layering many data sources and pieces of information within a single graph, both in terms of finding a way to neatly display them, and in terms of the data processing required to get multiple data sources to the same scale and granularity (as noted, I had to do some approximating using linear interpolation). Additionally, the dataset itself was a bit tricky - while the original visualization stopped right at the huge spike in January, our data continued past that and it was troublesome to integrate the outlier month. 
+			As I mentioned, I tried to strike a balance between case-count focused design and variant-focused design, which was one tension. Another tradeoff I made was between presenting very granular (e.g. daily) data vs high level snapshots (monthly). Daily data might have been better for tracking trends, but monthly data allows the user to pay attention to the details of each circle individually and draw specific insights.
 			</p>
 		</section>
 	</main>
