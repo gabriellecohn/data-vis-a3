@@ -234,7 +234,7 @@ Document the visual encodings you used and why they are appropriate for the data
 				<ul>
 					<li>I found a dataset which contained information about covid variants, with sequence counts for different variants at various timepoints across various countries. Data was originally provided by GISAID, and is currently available through Github thanks to Emma Hodcroft </li>
 					<li>This dataset only had information at ~2 weeks intervals, as compared to the "COVID_US_cases.csv" dataset, which had daily information. </li>
-					<li>For each existing timepoint, I computed the percentage of each variant against the total number of sequences for that timepoint. Any leftover sequences were categorized as "unknown".</li>
+					<li>For each existing timepoint, I computed the percentage of each variant against the total number of sequences for that timepoint. Any leftover sequences were categorized as "unknown". Sub-versions of major variants (e.g. 21K (Omicron) vs 21L (Omicron)) were grouped together under the major variant name.</li>
 					<li>I then used these bi-weekly fractions to interpolate daily fractions (to match my new cases dataset). So if one variant had 10% of the sequences at one point in time, and 20% two weeks later, each day in between would be a linear interpolation between 10% and 20%. This way, percentages will change smoothly, and always add up to 100% at any given day.</li>
 					<li>I multiplied the count of new cases per day with the daily variant fractions to get new cases attributable to each variant per day.</li>
 					<li>I then summed up the new cases attributable to each variant per month to get total new cases per variant per month.</li>
