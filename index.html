@@ -72,13 +72,22 @@ My main takeaway (if I were reading this in 2022) would be that cases had been r
 
 		<section>
 			<h2>Visualization Sketches</h2>
+			<p>Note that I made some speculative sketches without using the actual data (just to explore an idea), and then made secondary sketches using the actual data after identifying my designs. Shown below are both the first and secondary sketches. </p>
 
-      <figure>
-				<img src="sketch_1.png" alt="" />
-				<figcaption>
-          Sketch 1: A slight modification to the original visualization, where different variants are shown using different colors.
-				</figcaption>
-			</figure>
+      <figure style="display: flex; align-items: flex-start; gap: 24px;">
+        <div style="flex: 1; text-align: center;">
+          <img src="sketch_1.jpg" alt="Sketch 1 original" style="max-width: 100%; height: auto; border: 1px solid #ddd; background: #fafafa;">
+          <figcaption style="margin-top: 6px;">
+            Sketch 1: A slight modification to the original, where different variants are shown using different colors. Data is not accurate.
+          </figcaption>
+        </div>
+        <div style="flex: 1; text-align: center;">
+          <img src="sketch_1_III.png" alt="Sketch 1 variant color" style="max-width: 100%; height: auto; border: 1px solid #ddd; background: #fafafa;">
+          <figcaption style="margin-top: 6px;">
+            Sketch 1: Second iteration where I use actual data (although it's hand-drawn so far from perfectly accurate).
+          </figcaption>
+        </div>
+      </figure>
 
 			<p>
 				<b>Design Rationale for Sketch 1:</b>
@@ -104,11 +113,19 @@ My main takeaway (if I were reading this in 2022) would be that cases had been r
 				<li>For my next sketch, I wanted to get away from the original design, and come up with something that was easier to look at and more variant-focused.  </li>
 			</ul>
 
-			<figure>
-				<img src="sketch_2.png" alt="" />
-				<figcaption>
-          Sketch 2: A reimagining of the data which is focused on variants, inspired by petri dishes.
-				</figcaption>
+			<figure style="display: flex; align-items: flex-start; gap: 24px;">
+				<div style="flex: 1; text-align: center;">
+					<img src="sketch_2.png" alt="Sketch 2 original" style="max-width: 100%; height: auto; border: 1px solid #ddd; background: #fafafa;">
+					<figcaption style="margin-top: 6px;">
+						Sketch 2: A reimagining of the data which is focused on variants, inspired by petri dishes.
+					</figcaption>
+				</div>
+				<div style="flex: 1; text-align: center;">
+					<img src="sketch_2_III.png" alt="Sketch 2 with actual data" style="max-width: 100%; height: auto; border: 1px solid #ddd; background: #fafafa;">
+					<figcaption style="margin-top: 6px;">
+						Sketch 2: Second iteration where I use actual data (same caveat as first sketch)
+					</figcaption>
+				</div>
 			</figure>
 
 			<p>
@@ -136,16 +153,25 @@ My main takeaway (if I were reading this in 2022) would be that cases had been r
 						<li>As we learned in class, area is not the easiest way for people to compare things, and we often have mental bias in what we think a shape 2x larger would look like. Additionally, variant sampling tells us something about the approximate percentages of variants at a given time, but is not a perfect metric. Therefore, this is not a very good visualization if you want to understand exact numbers.</li>
 						<li>There is more information I would like to include, e.g. hospitalizations, but I couldn't think of a clear way to do so that would work well with the current design.</li>
 						<li>We do lose some of the cicular aspect of time, and this visualization makes the assumption of the viewer reading right to left, up to down, which is not the case for everyone (although the audience would primarily be American).</li>
+						<li>I wasn't sure how to handle the huge spike in cases in January 2022 - here I just made an extra big circle, but this choice is refined in my final visualization.</li>
 					</ul>
 				</li>
 				<li>For my next sketch, I wanted to try just doing the "straightforward" thing, and be as informative as possible without getting too cluttered.</li>
 			</ul>
 
-			<figure>
-				<img src="sketch_3.png" alt="" />
-				<figcaption>
-          Sketch 3: A more straightforward/traditional visualization of the data, still including variants.
-				</figcaption>
+			<figure style="display: flex; align-items: flex-start; gap: 24px;">
+				<div style="flex: 1; text-align: center;">
+					<img src="sketch_3.png" alt="Sketch 3 original" style="max-width: 100%; height: auto; border: 1px solid #ddd; background: #fafafa;">
+					<figcaption style="margin-top: 6px;">
+						Sketch 3: A more straightforward/traditional visualization of the data, still including variants.
+					</figcaption>
+				</div>
+				<div style="flex: 1; text-align: center;">
+					<img src="sketch_3_II.png" alt="Sketch 3 with data" style="max-width: 100%; height: auto; border: 1px solid #ddd; background: #fafafa;">
+					<figcaption style="margin-top: 6px;">
+						Sketch 3: Second iteration where I use actual data.
+					</figcaption>
+				</div>
 			</figure>
 
 			<p>
@@ -154,13 +180,14 @@ My main takeaway (if I were reading this in 2022) would be that cases had been r
 
 			<ul>
 				<li>The original NYT visualization (and my first sketch based off of it) were both trying something very novel but maybe a bit too quirky. As I mentioned, people on r/dataisbeautiful were mostly in favor of just doing things in a clear, straightforward way. I think there is something to be said for following convention, as it maximizes the chance that the average viewer who has seen charts before will be able to instantly grasp the data.</li>
-				<li>I wanted to integrate some of the information that was missing from my first two sketches, like deaths and hospitalizations, as different layers in the graph</li>
+				<li>I wanted to integrate some of the information that was missing from my first two sketches, like deaths and hospitalizations, as different layers in the graph. Note that hospitalizations are not shown here, as that would require another data source and I just wanted to get a sketch down to see how it might look. </li>
 				<li>Because of the straightforward timeline, I could easily add milestones like "first vaccine approved", or "first appearance of the Omicron variant".</li>
 				<li>I also considered adding a sub-section to the graph showing velocity of change, to help users understand the rate at which new cases were increasing or decreasing.</li>
 				<li>What worked well
 					<ul>
-						<li>I think this is a pretty straightforward visualization, which provides the viewer useful info that aligns with the content of the article (which was speculating how the new Omicron variant might impact deaths and hospitalizations).</li>
+						<li>I think this is a relatively straightforward visualization, which provides the viewer useful info that aligns with the content of the article (which was speculating how the new Omicron variant might impact deaths and hospitalizations).</li>
 						<li>The left-to-right timeline is easy to follow, and the viewer can quickly spot milestone events and peaks/troughs.</li>
+						<li>We can easily see the trend of deaths lag slightly behind new infections, which makes sense</li>
 					</ul>
 				</li>
 				<li>What didn't work well
@@ -168,6 +195,7 @@ My main takeaway (if I were reading this in 2022) would be that cases had been r
 						<li>I exchanged information about variants for information about deaths and hospitalizations, although I do have milestones for new variants. </li>
 						<li>I didn't find this visualization as exciting to create, and I don't think it would be as exciting or memorable to look at.</li>
 						<li>I think the layering might get tricky to read depending on how the scales of the data (new cases, deaths, hospitalizations) compare to each other.</li>
+						<li>When I used real data, I ended up having to implement a log-scale since there are (fortunately) far fewer deaths than new cases, and deaths were very difficult to see otherwise. This requires viewers to do an extra step of mental processing.</li>
 					</ul>
 				</li>
 			</ul>
@@ -179,7 +207,7 @@ My main takeaway (if I were reading this in 2022) would be that cases had been r
 			<figure id="covid-variants-figure">
 				<div id="covid-variants-chart"></div>
 				<figcaption id="covid-variants-caption">
-					New COVID-19 cases per month from January 2020 to September 2022. Each dark purple ring represents 7.5 million people, while each circle within the ring represents a covid variant. The area of the variant corresponds to the number of new cases attributed to that variant. Note that because January 2022 was an exceptionally high month in terms of new infections, the variant representing Omicron is external to the ring (in a "dripping" effect). Different colors correspond to different variants.  The icon next to December 2020 indicates that this is when vaccines first started to be administered in the United States.
+					New COVID-19 cases per month from January 2020 to September 2022. Each dark purple ring represents 15 million people, while each circle within the ring represents a covid variant. The area of the variant corresponds to the number of new cases attributed to that variant. Note that because January 2022 was an exceptionally high month in terms of new infections, the variant representing Omicron is external to the ring (in a "dripping" effect). Different colors correspond to different variants.  The icon next to December 2020 indicates that this is when vaccines first started to be administered in the United States.
 				</figcaption>
 			</figure>
 
@@ -218,20 +246,20 @@ Document the visual encodings you used and why they are appropriate for the data
 			The month of January 2022 presented a problem for me. There was a huge increase in the number of cases, with ~25 million new cases - 4x as many as in the next highest month. I went into Tableau and also checked with Google to confirm that this really happened and wasn't just an outlier/mistake but it seems accurate. I thought for a while about how to address this. As I mentioned, I considered having variants be sized relative to their month. This "looked" the best, i.e. every month was well-filled with very visible variant bubbles. However, doing that would totally discard absolute case count information. I also considered log-scaling the counts. However, I figured that since it is already non-trivial for viewers to compare areas/volumes, adding another layer of complexity ("twice the area actually means 10x more cases") would be very confusing and at that point I might as well just do relative sizing. I tried just making the outer ring for January 2022 giant, but this didn't look very good, as it broke up the grid of same-sized outer rings. 
 			Eventually, I created my current visualization, where Omicron is "overflowing" the container of January. While I wouldn't say this is a perfect solution, it does 1. keep ring sizes consistent, 2. retain the area = absolute value count paradigm 3. draw attention to the fact that January 2022 was a crazy month 4. stick with the "biological" theme. Creating this effect was another challenge since I wanted to have a cool-looking drip while also maintaining the correct proportion of pixels to represent the number of people who got Omicron. I did this using the following method:
 			<ul>
-				<li>In Figma, I created a circle with radius 50. This represents 7.5 million people (as in my visualization). I then created a shape that was the same width as the circle , and subtracted various cutouts from it to get the "drip" look. I then computed how many pixels it took up. </li>
-				<li>There were ~19.5 million new Omicron cases. 50 pixel radius = 7853.98163397 pixels, so my drip should take up  (19.5 million / 7.5 million) * 7853.98163397 pixels, relative to the circle. I messed with the shape length until my shape matched that number.</li>
+				<li>In Figma, I created a circle with radius 50. This represents 15 million people (as in my visualization). I then created a shape that was the same width as the circle , and subtracted various cutouts from it to get the "drip" look. I then computed how many pixels it took up. </li>
+				<li>There were ~19.5 million new Omicron cases. 50 pixel radius = 7853.98163397 pixels, so my drip should take up  (19.5 million / 15 million) * 7853.98163397 pixels, relative to the circle. I messed with the shape length until my shape matched that number.</li>
 				<li>I exported the shape as an SVG, and then a sized it to be proportionally to the actual outer-ring circle.</li>
 			</ul>
 			My goal is for a viewer to look at this visualization, and be able to read the broad strokes of the story of COVID from 2020 to 2022. We can see case count rapidly increasing as the area of the variant bubbles grow. As sequencing efforts take off, more variants appear, shifting away from the gray "unknown". One can easily see the dip in June of 2021 when there were relatively few new cases, and the rapid rise of new variants like Delta and Omicron. I also included a small annotation to indicate when vaccines started rolling out. 
-			While, as I pointed out in my sketch notes, this is not the best visualization for gleaning exact numbers, I think it does communicate <i>change</i> effectively using color and size - two dimensions it is very easy for people to apprehend at a glance.
-			As also mentioned in the sketch notes, there is additional information that could have been interesting/relevant (hospitalizations, deaths), which this visualization does not convey. I could have added more elements, but I didn't want to make things too complicated and draw away from the main narrative. Looking at the data this way also downplays the day to day changes, in favor of a high-level takeaway. Through daily changes we can see trends, but we don't look too carefully at any individual point. By limiting the visualization to a comparatively small number of subplots (33), the viewer can actually think about each month. One thing that I thought was interesting and surprising when looking at the data this was was how quickly Delta seemed to drop off after Omicron rose to prominence. Seeing this led to me to check out a few papers (<a href="https://pubmed.ncbi.nlm.nih.gov/35503007/">here</a> and <a href="https://pubmed.ncbi.nlm.nih.gov/35841797/">here</a>) which expanded on this phenomenon. 
+			While, as I pointed out in my sketch notes, this is not the best visualization for gleaning exact numbers, I think it does communicate <i>change</i> effectively using color and size - two dimensions it is very easy for people to apprehend at a glance. Additionally, I always place the largest variant bubble in the center for each month. This ensured that the viewer could answer the questions "what was the dominant variant at time <i>t</i>?" in a second, without even having to make comparisons.
+			Again, as mentioned in the sketch notes, there is additional information that could have been interesting/relevant (hospitalizations, deaths), which this visualization does not convey. I could have added more elements, but I didn't want to make things too complicated and draw away from the main narrative. Looking at the data this way also downplays the day to day changes, in favor of a high-level takeaway. Through daily changes we can see trends, but we don't look too carefully at any individual point. By limiting the visualization to a comparatively small number of subplots (33), the viewer can actually think about each month. One thing that I thought was interesting and surprising when looking at the data this was was how quickly Delta seemed to drop off after Omicron rose to prominence. Seeing this led to me to check out a few papers (<a href="https://pubmed.ncbi.nlm.nih.gov/35503007/">here</a> and <a href="https://pubmed.ncbi.nlm.nih.gov/35841797/">here</a>) which expanded on this phenomenon. 
 			
 			<p>Reflections on Final design vs critique: 
 				<ul>
 					<li>Addressed:
 						<ul>
 							<li>My visualization includes variant information, which I felt was a key element missing from the original, particularly given to focus of the article</li>
-							<li>My scale (the outer ring representing 7.5 million people) is always close to the data (variant bubbles) which makes for easier comparison than having a single scale legend in the top left</li>
+							<li>My scale (the outer ring representing 15 million people) is always close to the data (variant bubbles) which makes for easier comparison than having a single scale legend in the top left</li>
 							<li>Includes clear month annotations for every month</li>
 							<li>Includes clear month annotations for every month, and also has an annotation for the introduction of vaccines, as well as new case count per month</li>
 							<li>Does not look worm-like</li>
@@ -250,7 +278,11 @@ Document the visual encodings you used and why they are appropriate for the data
 				
 				<!-- Did the process of “critique by redesign” help you identify some of the challenges of communicating this data, and perhaps some design tensions or tradeoffs (i.e., that you weren’t able to address all the critiques you had initially levied?). -->
 			I do think the process of "critique by redesign" helped me identify some challanges of the data. I have more appreciation for the difficulty of layering many data sources and pieces of information within a single graph, both in terms of finding a way to neatly display them, and in terms of the data processing required to get multiple data sources to the same scale and granularity (as noted, I had to do some approximating using linear interpolation). Additionally, the dataset itself was a bit tricky - while the original visualization stopped right at the huge spike in January, our data continued past that and it was troublesome to integrate the outlier month. 
-			As I mentioned, I tried to strike a balance between case-count focused design and variant-focused design, which was one tension. Another tradeoff I made was between presenting very granular (e.g. daily) data vs high level snapshots (monthly). Daily data might have been better for tracking trends, but monthly data allows the user to pay attention to the details of each circle individually and draw specific insights.
+			As I mentioned, I tried to strike a balance between case-count focused design and variant-focused design, which was one tension. Another tradeoff I made was between presenting very granular (e.g. daily) data vs high level snapshots (monthly). Daily data might have been better for tracking trends, but monthly data allows the user to pay attention to the details of each circle individually and draw specific insights. As a more technical trade-off, I picked 15 million as a reference size for each outer-ring even though it made some of the variant circles a bit small, because otherwise I might have had to have slightly overlapping variant bubbles for some months, and I felt that overlapping 1. made the size comparisons less clear and 2. broke my visual rule, which I had already broken once for January 2022.
+			</p>
+			<p>
+				<h3>Use of Generative AI</h3>
+				<p>I used generative AI to help turn my sketch into an actual graph using the D3 JavaScript library.</p>
 			</p>
 		</section>
 	</main>
@@ -372,10 +404,14 @@ Document the visual encodings you used and why they are appropriate for the data
 							canonicalCounts.unknown = (canonicalCounts.unknown || 0) + extra;
 							sumCanonical += extra;
 						}
+						// Normalize to a proper probability distribution.
+						// If canonical counts exceed totalSeq (possible after regrouping),
+						// use sumCanonical as denominator so fractions still sum to 1.
+						const denom = sumCanonical > 0 ? sumCanonical : totalSeq;
 						const percByVariant = {};
 						for (const [c, val] of Object.entries(canonicalCounts)) {
 							if (val <= 0) continue;
-							percByVariant[c] = val / totalSeq;
+							percByVariant[c] = val / denom;
 							canonicalSet.add(c);
 						}
 						if (!Object.keys(percByVariant).length) return;
@@ -438,8 +474,20 @@ Document the visual encodings you used and why they are appropriate for the data
 							});
 						}
 						let sum = Object.values(percMap).reduce((x, y) => x + y, 0);
-						if (sum < 0.999) {
-							percMap.unknown = (percMap.unknown || 0) + (1 - sum);
+						if (!(sum > 0)) {
+							percMap = { unknown: 1 };
+						} else {
+							// If interpolation leaves a deficit, assign it to unknown.
+							if (sum < 0.999) {
+								percMap.unknown = (percMap.unknown || 0) + (1 - sum);
+								sum = 1;
+							}
+							// If interpolation/rounding creates an excess, renormalize all variants.
+							if (sum > 1.001) {
+								for (const k of Object.keys(percMap)) {
+									percMap[k] = percMap[k] / sum;
+								}
+							}
 						}
 					}
 
@@ -580,12 +628,12 @@ Document the visual encodings you used and why they are appropriate for the data
 
 			const outerScaleFactor = 1.25;
 			// Strict area mapping: inner circles are calibrated to the full outer-ring area.
-			const packScale = 1;
-			const packPadding = 1.5;
 			const cellGap = 6;
 			const maxInnerR = ((cellSize - cellGap) / 2) / outerScaleFactor;
 			// All outer circles same size: volume represents 7.5M cases.
-			const referenceSmall = 7_500_000;
+			const referenceSmall = 15_000_000
+			// const referenceSmall = 7_500_000;
+			// const referenceSmall = 20_500_000;
 			const radiusScale = d3.scaleSqrt().domain([0, referenceSmall]).range([0, maxInnerR]);
 			const maxOuterRadius = radiusScale(referenceSmall) * outerScaleFactor;
 			const leftViewMargin = 32;
@@ -676,15 +724,6 @@ Document the visual encodings you used and why they are appropriate for the data
 					.text("Monthly deaths: " + Math.round(monthlyDeaths).toLocaleString("en-US"));
 			}
 
-			function packedChildrenArea(rootNode) {
-				if (!rootNode || !rootNode.children || !rootNode.children.length) return 0;
-				let area = 0;
-				rootNode.children.forEach(node => {
-					area += Math.PI * node.r * node.r;
-				});
-				return area;
-			}
-
 			months.forEach((cellData, idx) => {
 				const col = idx % 12;
 				const row = Math.floor(idx / 12);
@@ -701,17 +740,81 @@ Document the visual encodings you used and why they are appropriate for the data
 					const dripG = cellsG.append("g")
 						.attr("class", "jan2022-drip")
 						.attr("transform", `translate(${cx - maxOuterRadius},${cy}) scale(${dripScale})`);
-					const dripSvg = dripG.append("svg").attr("viewBox", "0 0 100 316").attr("width", 100).attr("height", 316);
-					dripSvg.append("path").attr("d", "M0.637695 0C4.46689 23.8113 25.1088 42 50 42C74.8912 42 95.5331 23.8113 99.3623 0H100V210.5H90V188.981C89.9999 186.22 87.7614 183.981 85 183.981C82.2386 183.981 80.0001 186.22 80 188.981V210.5H60V183.983C60 181.222 57.7614 178.983 55 178.983C52.2386 178.983 50 181.222 50 183.983V210.5H39.9775C39.7395 207.96 37.6021 205.973 35 205.973C32.3979 205.973 30.2605 207.96 30.0225 210.5H20V144C20 141.239 17.7614 139 15 139C12.2386 139 10 141.239 10 144V210.5H0V0H0.637695Z").attr("fill", "#AA185F");
-					dripSvg.append("rect").attr("x", 20).attr("y", 197).attr("width", 10).attr("height", 48).attr("rx", 5).attr("fill", "#AA185F");
-					dripSvg.append("rect").attr("x", 0).attr("y", 190).attr("width", 10).attr("height", 107).attr("rx", 5).attr("fill", "#AA185F");
-					dripSvg.append("rect").attr("x", 40).attr("y", 197).attr("width", 10).attr("height", 119).attr("rx", 5).attr("fill", "#AA185F");
-					dripSvg.append("rect").attr("x", 60).attr("y", 197).attr("width", 10).attr("height", 76).attr("rx", 5).attr("fill", "#AA185F");
-					dripSvg.append("rect").attr("x", 60).attr("y", 277).attr("width", 10).attr("height", 11).attr("rx", 5).attr("fill", "#AA185F");
-					dripSvg.append("rect").attr("width", 10).attr("height", 25).attr("rx", 5).attr("transform", "matrix(1 0 0 -1 20 280)").attr("fill", "#AA185F");
-					dripSvg.append("rect").attr("x", 90).attr("y", 189).attr("width", 10).attr("height", 84).attr("rx", 5).attr("fill", "#AA185F");
-					dripSvg.append("rect").attr("x", 70).attr("y", 190).attr("width", 10).attr("height", 42).attr("rx", 5).attr("fill", "#AA185F");
-					dripSvg.append("path").attr("d", "M70 235.5L70.4336 233.982C70.7841 232.756 71.7625 231.809 73 231.5L70 225.5V235.5Z").attr("fill", "#AA185F");
+					const dripSvg = dripG.append("svg")
+						.attr("viewBox", "0 0 100 214")
+						.attr("width", 100)
+						.attr("height", 214);
+
+					dripSvg.append("path")
+						.attr("d", "M0.637695 0C4.46689 23.8113 25.1088 42 50 42C74.8912 42 95.5331 23.8113 99.3623 0H100V104.5H90V80.9814C89.9999 78.2201 87.7614 75.9814 85 75.9814C82.2386 75.9814 80.0001 78.2201 80 80.9814V104.5H60V75.9834C60 73.222 57.7614 70.9834 55 70.9834C52.2386 70.9834 50 73.222 50 75.9834V104.5H40V102.973C40 100.211 37.7614 97.9727 35 97.9727C32.2386 97.9727 30 100.211 30 102.973V104.5H20V65C20 62.2386 17.7614 60 15 60C12.2386 60 10 62.2386 10 65V104.5H0V0H0.637695Z")
+						.attr("fill", "#AA185F");
+
+					dripSvg.append("rect")
+						.attr("x", 20)
+						.attr("y", 95)
+						.attr("width", 10)
+						.attr("height", 48)
+						.attr("rx", 5)
+						.attr("fill", "#AA185F");
+
+					dripSvg.append("rect")
+						.attr("x", 0)
+						.attr("y", 88)
+						.attr("width", 10)
+						.attr("height", 107)
+						.attr("rx", 5)
+						.attr("fill", "#AA185F");
+
+					dripSvg.append("rect")
+						.attr("x", 40)
+						.attr("y", 95)
+						.attr("width", 10)
+						.attr("height", 119)
+						.attr("rx", 5)
+						.attr("fill", "#AA185F");
+
+					dripSvg.append("rect")
+						.attr("x", 60)
+						.attr("y", 95)
+						.attr("width", 10)
+						.attr("height", 76)
+						.attr("rx", 5)
+						.attr("fill", "#AA185F");
+
+					dripSvg.append("rect")
+						.attr("x", 60)
+						.attr("y", 175)
+						.attr("width", 10)
+						.attr("height", 11)
+						.attr("rx", 5)
+						.attr("fill", "#AA185F");
+
+					dripSvg.append("rect")
+						.attr("width", 10)
+						.attr("height", 25)
+						.attr("rx", 5)
+						.attr("transform", "matrix(1 0 0 -1 20 178)")
+						.attr("fill", "#AA185F");
+
+					dripSvg.append("rect")
+						.attr("x", 90)
+						.attr("y", 87)
+						.attr("width", 10)
+						.attr("height", 84)
+						.attr("rx", 5)
+						.attr("fill", "#AA185F");
+
+					dripSvg.append("rect")
+						.attr("x", 70)
+						.attr("y", 88)
+						.attr("width", 10)
+						.attr("height", 42)
+						.attr("rx", 5)
+						.attr("fill", "#AA185F");
+
+					dripSvg.append("path")
+						.attr("d", "M70 133.5L70.4336 131.982C70.7841 130.756 71.7625 129.809 73 129.5L70 123.5V133.5Z")
+						.attr("fill", "#AA185F");
 				}
 				if (monthlyNewCases > 0) {
 					const cell = cellsG.append("g")
@@ -751,49 +854,76 @@ Document the visual encodings you used and why they are appropriate for the data
 					}
 					return;
 				}
-				// Only pack variants that are present this month (cases > 0). Jan 2022: drip = Omicron, so exclude from pack.
-				const variantsToPack = (isJan2022 ? variants.filter(v => v.variant !== "Omicron") : variants)
-					.filter(v => v.cases > 0);
-				const packedCases = variantsToPack.reduce((sum, v) => sum + (v.cases || 0), 0);
-				const monthRatio = Math.max(0, packedCases / referenceSmall || 0);
-				const monthScale = Math.min(1, Math.sqrt(monthRatio));
-				const maxPackRadius = outerRadius * packScale;
-				const basePackRadius = Math.max(maxPackRadius * monthScale, 2);
-				const root = {
-					id: "root",
-					value: 0,
-					children: variantsToPack.length ? variantsToPack.map(v => ({ ...v, value: v.cases })) : []
-				};
-				const rootNodeBase = d3.hierarchy(root).sum(d => d.value);
-				const basePack = d3.pack().size([2 * basePackRadius, 2 * basePackRadius]).padding(packPadding);
-				basePack(rootNodeBase);
-				const baseArea = packedChildrenArea(rootNodeBase);
-				const targetArea = Math.PI * outerRadius * outerRadius * Math.min(1, monthRatio);
-				const areaScale = baseArea > 0 ? Math.sqrt(targetArea / baseArea) : 1;
-				const packRadius = Math.max(2, Math.min(maxPackRadius, basePackRadius * areaScale));
-				const rootNode = d3.hierarchy(root).sum(d => d.value);
-				const pack = d3.pack().size([2 * packRadius, 2 * packRadius]).padding(packPadding);
-				pack(rootNode);
-				const packG = cellsG.append("g")
-					.attr("class", "pack")
-					.attr("transform", `translate(${cx + ox - packRadius},${cy + oy - packRadius})`);
-				if (isJan2022) {
-					const omicron = variants.find(v => v.variant === "Omicron");
-					const omicronCases = omicron ? omicron.cases : 0;
-					packG.append("title")
-						.text("January 2022 — Omicron: " + omicronCases.toLocaleString("en-US") + " new cases");
-				}
-				if (rootNode.children) {
-					rootNode.children.forEach(node => {
-						packG.append("circle")
-							.attr("cx", node.x)
-							.attr("cy", node.y)
-							.attr("r", node.r)
-							.attr("fill", variantColor(node.data.variant))
-							.attr("stroke", "rgba(0,0,0,0.2)")
-							.attr("stroke-width", 0.5);
+				// Draw true-size variant circles. Prefer separation; allow overlap only when strict packing is impossible.
+				const variantsToDraw = (isJan2022 ? variants.filter(v => v.variant !== "Omicron") : variants)
+					.filter(v => v.cases > 0)
+					.map(v => ({ ...v, r: radiusScale(v.cases) }))
+					.sort((a, b) => d3.descending(a.cases, b.cases)); // largest first, so they render on the bottom layer
+				const circlesG = cellsG.append("g")
+					.attr("class", "variant-circles")
+					.attr("transform", `translate(${cx + ox},${cy + oy})`);
+				const goldenAngle = Math.PI * (3 - Math.sqrt(5));
+				const placed = [];
+				const placementSamples = 280;
+				const nearEdgeBuffer = 0.6;
+				const preferredGap = 0.8;
+				function minClearance(x, y, r, extraGap) {
+					let min = Infinity;
+					placed.forEach(p => {
+						const dx = x - p.x;
+						const dy = y - p.y;
+						const dist = Math.sqrt(dx * dx + dy * dy);
+						const clearance = dist - (r + p.r + extraGap);
+						if (clearance < min) min = clearance;
 					});
+					return min;
 				}
+				variantsToDraw.forEach((v, i) => {
+					const maxDistInsideRing = Math.max(0, outerRadius - v.r - nearEdgeBuffer);
+					let bestWithGap = null;
+					let bestNoOverlap = null;
+					let bestOverlap = { x: 0, y: 0, clearance: -Infinity };
+					for (let k = 0; k < placementSamples; k++) {
+						const t = placementSamples <= 1 ? 0 : k / (placementSamples - 1);
+						const dist = maxDistInsideRing * Math.sqrt(t);
+						const angle = (i * 0.8 + k) * goldenAngle;
+						const testX = dist * Math.cos(angle);
+						const testY = dist * Math.sin(angle);
+						const gapClearance = minClearance(testX, testY, v.r, preferredGap);
+						const noOverlapClearance = minClearance(testX, testY, v.r, 0);
+						if (gapClearance >= -1e-6) {
+							if (!bestWithGap || dist < bestWithGap.dist) {
+								bestWithGap = { x: testX, y: testY, clearance: gapClearance, dist };
+							}
+							continue;
+						}
+						if (noOverlapClearance >= -1e-6) {
+							if (!bestNoOverlap || dist < bestNoOverlap.dist) {
+								bestNoOverlap = { x: testX, y: testY, clearance: noOverlapClearance, dist };
+							}
+							continue;
+						}
+						if (
+							noOverlapClearance > bestOverlap.clearance ||
+							(Math.abs(noOverlapClearance - bestOverlap.clearance) < 1e-6 && dist < (bestOverlap.dist ?? Infinity))
+						) {
+							bestOverlap = { x: testX, y: testY, clearance: noOverlapClearance, dist };
+						}
+					}
+					const chosen = bestWithGap || bestNoOverlap || bestOverlap;
+					const vx = chosen.x;
+					const vy = chosen.y;
+					placed.push({ x: vx, y: vy, r: v.r });
+					const c = circlesG.append("circle")
+						.attr("cx", vx)
+						.attr("cy", vy)
+						.attr("r", v.r)
+						.attr("fill", variantColor(v.variant))
+						.attr("stroke", "rgba(0,0,0,0.2)")
+						.attr("stroke-width", 0.5);
+					c.append("title")
+						.text(`${v.variant}: ${Math.round(v.cases).toLocaleString("en-US")} new cases`);
+				});
 
 				// December 2020: add small syringe icon at top-right of the outer circle
 				if (cellData.key === "2020-12" && monthlyNewCases > 0) {
@@ -824,7 +954,7 @@ Document the visual encodings you used and why they are appropriate for the data
 				if (monthlyNewCases > 0) {
 					const dripScale = (2 * maxOuterRadius) / 100;
 					const labelY = isJan2022
-						? cy + maxOuterRadius + 316 * dripScale + 10
+						? cy + maxOuterRadius + 180 * dripScale + 10
 						: cy + oy + outerRadius + 10;
 					const labelText = cellsG.append("text")
 						.attr("x", cx + ox)
@@ -844,14 +974,14 @@ Document the visual encodings you used and why they are appropriate for the data
 				}
 			});
 
-			// Legend: place in a box below the grid, toward the right (avoiding the drip)
+			// Legend: place in a box below the grid, pinned to the right visible edge.
 			const legendCols = 2;
 			const legendBoxItemWidth = 150; // Widen each legend item
 			const legendBoxWidth = legendCols * legendBoxItemWidth + 150; // make sure legendBoxWidth is defined
 			const legendRows = Math.ceil(((allVariantNames.length || 1) / legendCols));
 			// Extra vertical space inside legend box for size reference circle (actual outer circle size)
 			const legendBoxHeight = (legendRows + 1) * legendItemHeight + 24;
-			const legendBoxX = totalWidth - legendBoxWidth - 400;
+			const legendBoxX = totalWidth - legendBoxWidth - 8;
 			const legendBoxY = maxContentBottomY + 28;
 			svg.append("rect")
 				.attr("x", legendBoxX)
@@ -892,7 +1022,7 @@ Document the visual encodings you used and why they are appropriate for the data
 				.attr("y", 0)
 				.attr("dy", "0.35em")
 				.style("font-size", "9px")
-				.text("= 7.5 million people");
+				.text("= 15 million people");
 
 			// Add January 2022 Omicron count and Non-WHO count to caption
 			const jan2022 = months.find(m => m.key === jan2022Key);
